@@ -16,6 +16,7 @@ pages:
   - ['manual/entities.md', 'Manual', 'Entities']
   - ['manual/views.md', 'Manual', 'Views']
   - ['manual/error-handling.md', 'Manual', 'Error Handling']
+  - ['manual/presenters.md', 'Manual', 'Presenters']
   - ['manual/glossary.md', 'Manual', 'Glossary']
 
   - ['development/index.md', 'Developer', 'Overview']
