@@ -1,10 +1,6 @@
-**Entities** are all things that exist in the App.  
-Rails calls them "Models".  
+**Entities** are all things that exist in the App.
+Rails calls them "Models".
 *Some* of the Entities are "Resources".
-
-# Schema/Database Overview
-
-[![Schema.svg](manual/entities/entities_database_schemata/Schema.svg)](manual/entities/entities_database_schemata/Schema.svg)
 
 # Primary
 
@@ -185,17 +181,17 @@ combine (`UNION`) the permissions of the following subjects:
 ## [Copyright][]
 
 *This is a generic description which applies to all countries which have
-signed and implemented the ??? Copyright Treaty.*  
+signed and implemented the ??? Copyright Treaty.*
 *This is **not** about trade- and other marks nor about patents.*
 
 Every "Creative Work" (encoded by a [MediaFile][])
 can have one or more authors in a legal sense
 
 **IF** the the Work falls into the **public domain**,
-none of the following is relevant!  
+none of the following is relevant!
 There MAY still be authors in an historic/cultural/moral/ sense but as far as
 copyright law (and this "algorithm") is concerned, the "public" now "owns" all
-the rights, similar to Air.  
+the rights, similar to Air.
 Conditions for the public domain also differ by country, but generally
 
 - all authors are dead for more than 70-90 years
@@ -262,7 +258,7 @@ Note: Reading this list it becomes clear that simple copyleft licenses
 like BSD, MIT or WTFPL define almost the absolute minimum of a valid license.
 
 There is 1 Swiss **LAW** that is very important in the context of Madek
-(actually a chain of several laws up to the federal level…):  
+(actually a chain of several laws up to the federal level…):
 For all Works created at the ZHdK by employees (as part of their work)
 or students (as part of their studies), the commercial rights are transferred
 to the ZHdK (this applies to all almost all Universities).
