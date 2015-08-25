@@ -36,6 +36,11 @@ request on Github. It must adhere to the following rules.
     1. the  _Tests_ results (for MRI and JRuby), and
     2. the _Code Checks_ results
 
+    The tree-objects page in Cider-CI combines exactly this information. It can
+    be accessed via the tree-id link in each commit on the workspace page.
+    The generic URI is `http://ci.zhdk.ch/cider-ci/ui/workspace/trees/:TREE-ID`.
+
+
 Reviewing
 ---------
 
