@@ -2,12 +2,12 @@
 
 ## Implementation
 
-Each of the 3 types of media resources, namely `MediaEntry`, `Collection` and `FilterSet` implements a class method `filter`. This method defines its own `SQL` generation logic and behaves as any other `ActiveRecord` scope method, and thus it's also chainable.
+Each of the 3 types of media resources, namely `MediaEntry`, `Collection` and `FilterSet` implements a class method `filter_by`. This method defines its own `SQL` generation logic and behaves as any other `ActiveRecord` scope method, and thus it's also chainable.
 
 ## Usage example
 
 ```ruby
-MediaEntry.filter \
+MediaEntry.filter_by \
   meta_data: [{ key: 'madek_core:authors', value: '6e4da213-2f4d-41a6-9eb0-c961d74f717e' },
               { key: 'media_content:type', match: 'architektur' },
               { key: 'any', match: 'india', type: 'MetaDatum::Text' },
