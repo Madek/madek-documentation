@@ -24,6 +24,7 @@ MediaEntry.filter_by \
 ## Groups of filter attributes
 
 There are 3 groups of attributes one can filter by:
+
 * meta data
 * media file attributes
 * permission attributes
@@ -49,6 +50,8 @@ There are 5 usage options:
 5. use `not_key` to exclude media resources, which don't have any meta datum for a specific `meta_key_id`
 
 All the filter options inside `meta_data` are combined using the logical `AND`.
+
+String matching via `match` is case-insensitive.
 
 ### Media files options
 
