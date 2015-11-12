@@ -1,0 +1,31 @@
+jobs:
+  build-docs:
+    name: Build Docs
+    descriptions: Ensures docs can be built, attaches result for inspection
+    run-on: [{ type: branch, include-match: ".*" }]
+
+    context:
+      traits: { mkdocs: true }
+      trial-attachments:
+        docs: { glob: build.tgz, content-type: application/gzip }
+      tasks:
+        build:
+          scripts:
+            body: mkdocs build --clean && tar -czf docs.tgz build
+
+
+
+  trigger-rtfd:
+    # TODO: maybe be more effcient, this triggers everything on all branches ending with 'master'
+    name: Trigger ReadTheDocs.org
+    run-on: [{ type: branch, include-match: "master$" }]
+
+    context:
+      traits: { curl: true }
+      tasks:
+        all:
+          scripts:
+            body: |
+              for BRANCH in master ts_master mk_master mfa_master; do
+                curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
+              done
