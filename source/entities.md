@@ -34,6 +34,13 @@ specific compiled Previews (the generic thumbnail is )
 <mark>TODO: sizes! (not Previews are not just used for thumbs; how to handle small
   originals)</mark>
 
+### Preview of Sets
+
+> “Das Preview eines Sets kommt vom ‘Cover’, User-gewählter Entry (aus dem Set) der das Set visuell repräsentiert.
+> Wenn kein ‘Cover' vorhanden ist, nehmen wir aus der Liste der Einträge, die direkt im Set liegen, sortiert nach der (mögl. gespeicherten) Sortierung des Sets, den ersten von dem wir eine visuelle Darstellung haben.
+> Wenn so kein ‘Cover’ gefunden wird, nehmen wir das generische Preview für ein Set.”
+
+
 
 ## [MediaFile][]
 
@@ -119,6 +126,27 @@ An externally-defined [Group][], synced with an `LDAP`-Directory.
 
 Entities that have similar relations to several [Resources][]s
 are called Concerns.
+
+## [Relation][]s
+
+- <https://wiki.zhdk.ch/madek-hilfe/doku.php?id=relationship>
+
+## "Entrusted Resources"
+
+A Resource is "entrusted" to a User if they have "view" Permissions on the
+Resource, either directly or via their membership in a Group.
+Therefore, a Resource with "view" Permissions for "Public" can
+never be "entrusted" because it is already public.
+
+## "Privacy Status"
+
+- `public`: "Public" has "view" Permission
+- `private`: No Person or Group has "view" Permission
+- `shared`:
+    - if User is the owner and any Person or Group has "view" Permission
+    - if User is not the owner and has "view" Permission
+      (directly or via Group membership)
+
 
 ## [Permission][]s
 
@@ -309,13 +337,7 @@ i.e. every Model for which there is a `collection_$something_arcs` table.
 
 ---
 
-## Glossary
-
-A few terms that are used in this document wich may sound general but
-have actually a very clear distinct technical meaning, thus they are
-defined here for clarity.
-**NOT** a dictionary (use Wikipedia).
-
+## Abstract
 
 ### [Resource][]
 
@@ -325,24 +347,6 @@ defined here for clarity.
 - most standardized part of the app
     - "resourceful" routes
     - "resourceful" model/view/controllers
-
-
-### [Polymorph][]
-
-> "Apples and Oranges can not be compared!" — Folk wisdom
-
-> "So much complexity in software comes from
-> trying to make one thing do two things."
-> — [Ryan Singer](https://twitter.com/rjs/status/13444262645)
-
-A set is *polymorph* if it contains more than one kind of thing.
-
-Try to avoid polymorph sets as much as possible, because great care has to be
-taken with them. Normally easy things like sorting tend to get very hard.
-
-Note: There *are* `PolyThings` in the Application and they are called `Poly`
-to clearly mark them as such.
-
 
 [Collection]: #collection
 [Concern]: #concern

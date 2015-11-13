@@ -7,13 +7,13 @@ code directly. Instead, they are all collected in a "YAML" file under a certain
 `key`, which is used to reference that string from the source code.
 
 There can be one of those files per language, enabling translation of Madek into
-different languages.
+different languages.  
 The default language is German (`de`), the file can be seen here:
-<https://github.com/Madek/madek-webapp/blob/madek-v3/locale/de.yml>
+<https://github.com/Madek/madek-webapp/blob/madek-v3/locale/de.yml>  
 Other languages: [English (`en`)](https://github.com/Madek/madek-webapp/blob/madek-v3/locale/en.yml)
 
 Tip: It is possible to search for a specific `key` on github to see where it is
-used in the source code.
+used in the source code.  
 Ex.: <https://github.com/Madek/madek-webapp/search?utf8=✓&q=sitemap_my_archive>
 
 # Translator Guidelines
@@ -26,10 +26,11 @@ Ex.: <https://github.com/Madek/madek-webapp/search?utf8=✓&q=sitemap_my_archive
     *Note:* `"` rarely appears in product copy anyhow since typographically
     correct quotes should be used for each language.
 
-Start a new translation by copying `de.yml` or `en.yml` to a new file,
-like `fr.yml` for French, or `de-ch.yml` for Swiss German.
+Start a new translation by copying `de.yml` or `en.yml` to a new file.  
+Examples: `fr.yml` for French; `de-ch.yml` for Swiss German
 
 Recommended Editor: [Atom](https://atom.io)
+
 - has support for YAML out of the box
 - even better when "Indent Guides" and "Show Invisibles" is set to true in
     "Atom > Settings"
@@ -39,6 +40,7 @@ Recommended Editor: [Atom](https://atom.io)
 Ruby:
 
 ```rb
+I18n.locale = 'de'
 string = t(:the_key_name)
 string = I18n.t(:the_key_name) # when the short helper is not available
 ```
@@ -46,7 +48,7 @@ string = I18n.t(:the_key_name) # when the short helper is not available
 JavaScript/CoffeeScript:
 
 ```js
-t = require('app/assets/lib/string-translation.coffee') // but use relative path
+t = require('app/assets/lib/string-translation.coffee')('de')
 string = t('the_key_name')
 ```
 

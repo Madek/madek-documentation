@@ -1,3 +1,5 @@
+# TEMP: v2 routing Table
+
 |Name|Method|Route|Controller|
 |---|---|---|---|
 |api|GET|/api(.:format)|api#show |
