@@ -57,8 +57,8 @@ string = t('the_key_name')
 Reasoning: keep it simple and consistent to make search and replace more easy later.
 
 - Ruby: Always use symbols for keys.
-- Ruby/JS: **Never build a key dynamically** (for example by defining a 'base key')
-  and then appending some specific name at the end inside a `map`.
+- Ruby/JS: **Never build a key dynamically** (for example by defining a 'base key'
+  and then appending some specific name at the end inside a `map`).
 
 ```rb
 # BAD:
@@ -67,7 +67,7 @@ section = 'foo'
   puts t("#{section}_#{id}") + ': ' n
 end
 # GOOD:
-[{ title: t(:foo_bar), n: 1}, { title: t(:foo_baz), n: 2}].map do |t, n|
-  puts t + ': ' n
+[{ title: t(:foo_bar), n: 1}, { title: t(:foo_baz), n: 2}].map do |title, n|
+  puts title + ': ' n
 end
 ```
