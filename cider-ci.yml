@@ -17,6 +17,7 @@ jobs:
 
   trigger-rtfd:
     # TODO: maybe be more effcient, this triggers everything on all branches ending with 'master'
+    # NOTE: the master branch is triggered from github
     name: Trigger ReadTheDocs.org
     run-on: [{ type: branch, include-match: "master$" }]
 
@@ -26,6 +27,6 @@ jobs:
         all:
           scripts:
             body: |
-              for BRANCH in master ts_master mk_master mfa_master; do
+              for BRANCH in ts_master mk_master mfa_master; do
                 curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
               done
