@@ -19,11 +19,12 @@ Each of the 3 types of media resources, namely `MediaEntry`, `Collection` and `F
       "type": "MetaDatum::Text" },
     { "key": "any",
       "match": "china" },
+    { "key": "madek_core:keywords" },
     { "not_key": "media_object:patron" }
   ],
   "media_files": [
     { "key": "content_type", "value": "image/jpeg" },
-    { "key": "extension", "value": "any" }
+    { "key": "extension", "value": "jpg" }
   ],
   "permissions": [
     { "key": "public",
@@ -66,6 +67,7 @@ All of these are combined together using logical `AND`.
       "type": "MetaDatum::Text" },
     { "key": "any",
       "match": "china" },
+    { "key": "madek_core:keywords" },
     { "not_key": "media_object:patron" }
   ]
 }
@@ -77,7 +79,8 @@ There are 5 usage options:
 2. for a specific `key` use an arbitrary string via `match` to match in the respective DB column, depending on the type of the related resource, e.g. `people.searchable` or `keywords.term`, etc.
 3. use `any` as `key` with an arbitrary string via `match` to trigger a text-based match for any meta datum of a specific `type`
 4. use `any` as `key` with an arbitrary string via `match` to trigger a text-based match across all meta data
-5. use `not_key` to exclude media resources, which don't have any meta datum for a specific `meta_key_id`
+5. use `key` without `value` or `match` to filter media resources, which have some meta datum for a specific `meta_key_id`
+6. use `not_key` without `value` or `match` to exclude media resources, which don't have any meta datum for a specific `meta_key_id`
 
 All the filter options inside `meta_data` are combined using the logical `AND`.
 
