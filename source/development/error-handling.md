@@ -70,7 +70,7 @@ any Rails controller action is also a rack app(!).
 When in doubt, the `PublicExceptions` controller linked above is by definition the
 authorative source on how to implement an `ErrorsController`.
 
-We add `app/controllers/errors_controller.rb` with a `#show` action (see [actual source](https://github.com/Madek/madek-webapp/blob/madek-v3/app/controllers/errors_controller.rb)
+We add `app/controllers/errors_controller.rb` with a `#show` action (see [actual source](https://github.com/Madek/madek-webapp/blob/master/app/controllers/errors_controller.rb)
 for details):
 
 ```ruby

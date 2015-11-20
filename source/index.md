@@ -31,7 +31,6 @@ should be cleaned up before a release.
 - `master`: on production
 - `staging`: on staging
 - `next`: collect for staging
-- *(currently):* `madek-v3`: "next" and "staging" for v3
 
 ---
 
@@ -48,7 +47,7 @@ should be cleaned up before a release.
 
 ```bash
 # edit this to match the situation:
-TARGET='madek-v3'
+TARGET='master'
 USER_SHORT='cw'
 USER_GITHUB='niknoilich'
 

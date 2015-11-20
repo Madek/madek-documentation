@@ -254,7 +254,7 @@ this is escpecially important for Combos, as they receive mostly (prerendered) c
 - render nil if no minimum data is given (less `= icon if icon`). throw when something is obviously wrong.
 - still log warnings for things that are strange (possibly broken)
 (where it make sense, ie. it is closely related to a HTML tag, like icon)
-- custom helpers are all in one module ([source](https://github.com/zhdk/madek/blob/madek-v3/app/helpers/ui_helper.rb#L2)), plus the Presenter.
+- custom helpers are all in one module ([source](https://github.com/zhdk/madek/blob/master-v3/app/helpers/ui_helper.rb#L2)), plus the Presenter.
 - the reference for all (custom) UI Elements is in `views/styleguide`
 - in testing, every example in the styleguide is rendered (headless) and (SHA1) compared against a reference image to catch errors and (browser) changes early
 

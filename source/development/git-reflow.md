@@ -35,8 +35,6 @@ next='next'     # name of targeted "next" branch
 ### Integration Branches
 
 - `master`
-- `next`
-- `madek-v3` (considered `next` for Version 3.0, which has no `master` yet)
 
 They must only be merged fast-forward and should never be force-pushed.
 

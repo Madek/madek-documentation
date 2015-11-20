@@ -9,8 +9,8 @@ code directly. Instead, they are all collected in a "YAML" file under a certain
 There can be one of those files per language, enabling translation of Madek into
 different languages.  
 The default language is German (`de`), the file can be seen here:
-<https://github.com/Madek/madek-webapp/blob/madek-v3/locale/de.yml>  
-Other languages: [English (`en`)](https://github.com/Madek/madek-webapp/blob/madek-v3/locale/en.yml)
+<https://github.com/Madek/madek-webapp/blob/master/locale/de.yml>  
+Other languages: [English (`en`)](https://github.com/Madek/madek-webapp/blob/master/locale/en.yml)
 
 Tip: It is possible to search for a specific `key` on github to see where it is
 used in the source code.  
