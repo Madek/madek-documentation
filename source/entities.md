@@ -180,7 +180,6 @@ A saved [Filter][].
     - [Permissions][] (*as* `resource`)
       - `actions` (all `subject`s): `view`, `use`
 
-
 ### "Core Vocabulary"
 
 - Madek has 1 [built-in Vocabulary (`madek_core`)][madek_core_vocab_spec]
@@ -190,11 +189,19 @@ A saved [Filter][].
     - Copyright/License: can be used for (public) visibility
     - *not to be confused with plain attributes (like `responsible_user`)*
 
+
 ## [MetaKey][]
 
+- a dynamic meta data "property"
+- *RDF:* Corresponds to a [`predicate`](http://www.w3.org/TR/rdf11-concepts/#dfn-predicate)
+
 - **Attributes:**
-    - `label`, `description`, `hint`: String
-    - `position`: Number, order inside the [Vocabulary][]
+    - `label`: String, name of the property
+    - `description`: String, description for data input and output
+    - `hint`: String, hint data input only
+    - `admin_comment`: String, **internal** comment for Admins only
+    - `position`: Number, order inside the [Vocabulary][]  
+        *Note: has no semantic meaning, only effect is displayed order in Admin UI)*
     - `meta_datum_object_type`: type of [MetaDatumValue][]
     - `is_enabled_for_{type}`: Bool,  
       valid types: [MediaEntry][], [Collection][], [FilterSet][]
@@ -206,6 +213,49 @@ A saved [Filter][].
 - **Relations:**
     - belongs to exactly 1 [Vocabulary][] ("is in the Vocabulary")
     - belongs to 0 or more [MetaDatum][]s ("is the key for the datum")
+    - belongs to 0 or more [Context][]s ("how the MetaKey is used in the Context")
+
+
+## [Context][]
+
+```figure
+┏━━━━━━━━━━━━━━┓       ┏━━━━━━━━━━━━━━┓       ┏━━━━━━━━━━━━━━┓
+┃              ┃       ┃              ┃       ┃              ┃
+┃              ┃──────▶┃              ┃       ┃              ┃
+┃   Context    ┃──────▶┃  ContextKey  ┃──────▶┃   MetaKey    ┃
+┃              ┃──────▶┃              ┃       ┃              ┃
+┃              ┃       ┃              ┃       ┃              ┃
+┗━━━━━━━━━━━━━━┛       ┗━━━━━━━━━━━━━━┛       ┗━━━━━━━━━━━━━━┛
+```
+
+
+- groups [MetaKey][]s (as [ContextKey][]s) for display and editing purposes
+- name in UI: "MetaKey(s) in Context"
+- **Attributes:**
+    - `label`: String, human-readable name
+    - `description`: String
+- **Relations:**
+    - has 0 or more [MetaKey][]s *as* [ContextKey][]s  
+      ("specifies how the MetaKey is used in this Context")
+    - can belong to 0 or 1 of each of these [AppSetting][]s:  
+      `ui_summary_context`, `ui_extra_contexts`, `ui_list_contexts`  
+      (Ex.: "This context is used as the 'Summary Context'")
+
+
+## [ContextKey][]
+
+- **Attributes:**
+    - `label`, `description`, `hint`: String
+        - same as the related [MetaKey][]!
+        - optionally set to "specify" for this [Context][]
+        - Warning: Admin must ensure semantic consistency!
+    - `position`: Number, order inside the [Context][]
+    - `is_required`: Bool, require a value (when edititing)
+    - `length_max`, `length_min`: Number, require value of certain lengths (when edititing)
+    - `input_type`: Number, ???
+- **Relations:**
+    - belongs to exactly 1 [Context][]
+    - belongs to exactly 1 [MetaKey][]
 
 
 ## [MetaDatum][]
@@ -258,7 +308,7 @@ A saved [Filter][].
 - **Relations:**
     - has 0 or 1 [User][]s (for every User created a related [Person][] is also created.)
 - **Concerns:**
-    - [MetaData][] (as value)
+    - [MetaData][] (as `value`)
 
 ## [Keyword][]
 
@@ -269,7 +319,7 @@ A saved [Filter][].
     - has exactly 1 [MetaKey][] as `creator`
     - has exactly 1 [User][] as `creator`
 - **Concerns:**
-    - [MetaData][] (as value)
+    - [MetaData][] (as `value`)
 
 
 ## [License][]
@@ -321,7 +371,7 @@ CREATE TABLE license_groups (
 - **Relations:**
     - has exactly 1 [Person][]
 - **Concerns:**
-    - [Permissions][] (as subject)
+    - [Permissions][] (as `subject`)
 
 ## [Group][]
 
@@ -333,9 +383,8 @@ CREATE TABLE license_groups (
 - **Relations:**
     - has 1 or more [User][]s as *members*
 - **Concerns:**
-    - [Permissions][] (as subject)
-    - **Concerns:**
-        - <mark>[MetaData][] (as value)</mark>
+    - [Permissions][] (as `subject`)
+    - <mark>[MetaData][] (as `value`)</mark>
 
 ## [InstitutionalGroup][]
 
@@ -357,6 +406,33 @@ CREATE TABLE license_groups (
     - has 1 or more [User][]s as *administrative contact*
 - **Concerns:**
     - [Permissions][] (as subject)
+
+
+## [AppSetting][]
+
+- instance-specific settings that is stored in the DB,
+  so it can be altered at run-time (as opposed to configuration files,
+  that can only be altered at deploy-time)
+
+```
+CREATE TABLE app_settings (
+    id integer DEFAULT 0 NOT NULL,
+    featured_set_id uuid,
+    splashscreen_slideshow_set_id uuid,
+    catalog_set_id uuid,
+    site_title character varying DEFAULT 'Media Archive'::character varying NOT NULL,
+    support_url character varying,
+    welcome_title character varying DEFAULT 'Powerful Global Information System'::character varying NOT NULL,
+    welcome_text character varying DEFAULT '**“Academic information should be freely available to anyone”** — Tim Berners-Lee'::character varying NOT NULL,
+    teaser_set_id uuid,
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL,
+    brand_logo_url character varying DEFAULT '/assets/inserts/image-logo-zhdk.png'::character varying NOT NULL,
+    brand_text character varying DEFAULT 'ACME, Inc.'::character varying NOT NULL,
+    sitemap jsonb DEFAULT '[{"Medienarchiv ZHdK": "http://medienarchiv.zhdk.ch"}, {"Madek Project on Github": "https://github.com/Madek"}]'::jsonb NOT NULL,
+    CONSTRAINT oneandonly CHECK ((id = 0))
+);
+```
 
 
 ## [Admin][]
@@ -460,7 +536,8 @@ pertaining to several different Resources is summarized as a *Concern*.
 ┗━━━━━━━━━━━━━━┛       ┗━━━━━━━━━━━━━━━┛
 ```
 
-- List of all [MetaDatum][]s associated with a `subject` Resource, grouped by [Vocabulary][]
+- List of all [MetaDatum][]s associated with a `subject` Resource
+- in UI, only listed by [Context][]
 - *RDF:* Corresponds to [`RDF Graph`](http://www.w3.org/TR/rdf11-concepts/#section-rdf-graph)
 
 
@@ -657,8 +734,11 @@ CREATE TABLE visualizations (
 <!-- internal -->
 [Admin]: #admin
 [ApiClient]: #apiclient
+[AppSetting]: #appsetting
 [Collection]: #collection
 [Concerns]: #concerns
+[Context]: #context
+[ContextKey]: #contextkey
 [Copyright]: #copyright
 [CustomURL]: #customurl
 [Entrusted Resource]: #entrusted-resources
