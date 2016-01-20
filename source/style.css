@@ -1,0 +1,5 @@
+/* ascii art in code blocks needs supporting font: */
+/* TODO: which font does work on linux? */
+pre, code {
+  font-family: "Menlo", monospace;
+}
