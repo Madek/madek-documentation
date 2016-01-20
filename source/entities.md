@@ -1,13 +1,13 @@
 The business logic of the Madek application is modeled as
 (Lists of) *Resources* and their *Attributes*, *Relations*, and *[Concerns][]*.
 
-The `webapp` provides *Views* and *Actions*[^1] to operate on those (high-level)
+The `webapp` provides *Views* and *Actions* to operate on those (high-level)
 Resources in user-centric fashion, while the `api` provides a RESTful interface
 closer to their underlying database implementation.
 
-[^1]: Note that the distinction between Views and Actions is just for clarity,
-  technically Views are all Actions that translate to a `HTTP GET` request and
-  return an UI.
+Note that Relations are Attributes that relate to other Resources;
+and Views are Actions that return an User Interface (or it's data).
+The distinction is just for clarity.
 
 A major component is the **[MetaData][]** Concern, which
 implements an [RDF-based Schema](http://www.w3.org/TR/rdf11-concepts/)
@@ -15,7 +15,7 @@ and therefore shares many similarites with
 [RDF Schema (RDFS)](http://www.w3.org/TR/rdf-schema/).  
 
 Relationship to RDF(S) terms is indicated where applicable,  
-*Resources* themselves correspond to
+Resources themselves correspond to
 [RDFS Resources](http://www.w3.org/TR/rdf-schema/#ch_resource).
 
 **Resource Defaults** (not separately listed):
@@ -49,20 +49,20 @@ Relationship to RDF(S) terms is indicated where applicable,
 ```
 
 - most important Resource in the App
-- Attributes:
+- **Attributes:**
     - `is_published`: default `false` ("unpublished"), set to `true` via the `publish` action.  
       Can only be changed once! *(That means there is no "unpublish" action)*
-- Relations:
+- **Relations:**
     - has exactly 1 [MediaFile][]
-- Concerns:
+- **Concerns:**
     - [Responsibility][]
-    - [Permissions][](*as* `subject`)
-    - [MetaData][](*as* `subject`)
+    - [Permissions][] (*as* `subject`)
+    - [MetaData][] (*as* `subject`)
     - [Previewable][]
     - [Favoritable][]
     - [CustomURL][]
-- Views: `index`, `show` (with tabs), `new` ("Upload-Form"), `edit_meta_data`
-- Actions: `update_cover` ("Upload"), `publish`, `destroy` (deletion)
+- **Views:** `index`, `show` (with tabs), `new` ("Upload-Form"), `edit_meta_data`
+- **Actions:** `update_cover` ("Upload"), `publish`, `destroy` (deletion)
 
 
 ## [Collection][]
@@ -77,40 +77,40 @@ Relationship to RDF(S) terms is indicated where applicable,
 ┗━━━━━━━━━━━━━━┛       ┗━━━━━━━━━━━━━━┛
 ```
 
-- Relations:
+- **Relations:**
     - has 0 or more Resources *as* `child_media_resources`
       ("The Resources are *in* the Collection")
         - type of Resources has to be [MediaEntry][] or [Collection][] or [FilterSet][]
         - 0 or 1 [MediaEntry][] *as* `cover`
         - 0 or more Resources *as* `highlight`
-- Concerns:
-    - [Responsibility][]
-    - [MetaData][] (*as* `subject`)
-    - [Permissions][](*as* `subject`)
-    - [Previewable][]
-    - [Favoritable][]
-    - [CustomURL][]
-- Views: `index`, `show`, `new`, <mark>`edit_meta_data`</mark>
-- Actions: `create` ("Upload"), `publish`, `meta_data_update`, `destroy` (deletion)
-
-
-## [FilterSet][]
-
-A saved [Filter][].
-
-- Attributes:
-    - `definition`: the saved [Filter][] (in `JSON`-format).
-- Derived Attributes:
-    - 0 or more [MediaEntries][] that match the Filter `definition`.
-- Concerns:
+- **Concerns:**
     - [Responsibility][]
     - [MetaData][] (*as* `subject`)
     - [Permissions][] (*as* `subject`)
     - [Previewable][]
     - [Favoritable][]
     - [CustomURL][]
-- Views: `index`, `show`, <mark>`edit`</mark>
-- Actions: `create`,`update`, `destroy` (deletion)
+- **Views:** `index`, `show`, `new`, <mark>`edit_meta_data`</mark>
+- **Actions:** `create` ("Upload"), `publish`, `meta_data_update`, `destroy` (deletion)
+
+
+## [FilterSet][]
+
+A saved [Filter][].
+
+- **Attributes:**
+    - `definition`: the saved [Filter][] (in `JSON`-format).
+- Derived Attributes:
+    - 0 or more [MediaEntries][] that match the Filter `definition`.
+- **Concerns:**
+    - [Responsibility][]
+    - [MetaData][] (*as* `subject`)
+    - [Permissions][] (*as* `subject`)
+    - [Previewable][]
+    - [Favoritable][]
+    - [CustomURL][]
+- **Views:** `index`, `show`, <mark>`edit`</mark>
+- **Actions:** `create`,`update`, `destroy` (deletion)
 
 
 ## [MediaFile][]
@@ -126,7 +126,7 @@ A saved [Filter][].
 ```
 
 - not operated on directly, only via related [MediaEntry][]
-- Attributes:
+- **Attributes:**
     - `filename`: String, original filename when uploaded
     - `extension`: String, e.g. 'jpg'
     - `content_type`: like mime-type, e.g. 'image/jpeg'
@@ -136,8 +136,8 @@ A saved [Filter][].
     - `meta_data`: file meta data (EXIF, IPTC, etc), **NOT** [MetaData][]!
     - `access_hash`: String, <mark>???</mark>
     - `guid`: String, <mark>???</mark>
-- Relations:
-    - has exactly 1 [User][] as `uploader`
+- **Relations:**
+    - has exactly 1 [User][] *as* `uploader`
     - has exactly 1 [MediaEntry][]
     - has 0 or more [ZencoderJob][]s
     - has 0 or more [Preview][]s
@@ -145,14 +145,14 @@ A saved [Filter][].
 
 ## [Preview][]
 
-- Attributes:
+- **Attributes:**
     - `filename`: String, internal filename (after conversion)
     - `height`, `width`, `content_type`, `media_type`:  
        same meaning as in [MediaFile][], but pertains to the converted file
     - <mark>`thumbnail`: String, one of the "configured sizes" for Previews,
       one of `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`  
       (*Note: found with* `SELECT DISTINCT thumbnail FROM previews`)
-- Relations:
+- **Relations:**
     - belongs to exactly 1 [MediaFile][]
 
 
@@ -171,13 +171,13 @@ A saved [Filter][].
 - A List of [MetaKey][]s (in specified order)
 - purpose: group [MetaKey][]s by semantics/topic and set visibility/permissions
 - *RDF:* Corresponds to a `RDFS Vocabulary`
-- Attributes:
+- **Attributes:**
     - `label`: String, human-readable name
     - `description`: String
-- Relations:
+- **Relations:**
     - has 0 or more [MetaKey][]s
-- Concerns:
-    - [Permissions][] (as resource)
+- **Concerns:**
+    - [Permissions][] (*as* `resource`)
       - `actions` (all `subject`s): `view`, `use`
 
 
@@ -192,7 +192,7 @@ A saved [Filter][].
 
 ## [MetaKey][]
 
-- Attributes:
+- **Attributes:**
     - `label`, `description`, `hint`: String
     - `position`: Number, order inside the [Vocabulary][]
     - `meta_datum_object_type`: type of [MetaDatumValue][]
@@ -203,8 +203,9 @@ A saved [Filter][].
       signifies if they should be displayed in alphabetical order
     - `is_extensible`: Bool, (when type is [Keyword][]s)
       determines if additional [Keyword][]s may be created while editing [MetaData][]
-- Relations:
-    - belongs to exactly 1 [Vocabulary][]
+- **Relations:**
+    - belongs to exactly 1 [Vocabulary][] ("is in the Vocabulary")
+    - belongs to 0 or more [MetaDatum][]s ("is the key for the datum")
 
 
 ## [MetaDatum][]
@@ -232,10 +233,10 @@ A saved [Filter][].
     - `MetaDatum::People`: [Person][]
     - `MetaDatum::Licenses`: [License][]
     - <mark>`MetaDatum::Groups`: [Group][]</mark>
-- Attributes:
+- **Attributes:**
     - `type`: type of [MetaDatumValue][]
     - `string`: the *Value* if it is a literal value (e.g. Text), *depends on `type`*
-- Relations:
+- **Relations:**
     - has exactly 1 [MetaKey][]
     - has exactly 1 Resource (valid types: [MediaEntry][], [Collection][], [FilterSet][])
     - has exactly 1 [User][] *as* "Creator" (`created_by_id`)
@@ -249,25 +250,25 @@ A saved [Filter][].
 
 - a generic (real-world) person (natural, fictional or juridical), group, or institution.
 - *can* be linked to [MetaDatum][] of type `MetaDatumPerson`  (i.e. "Author")
-- Attributes:
+- **Attributes:**
     - `first_name`, `last_name`, `pseudonym`: String
     - `date_of_birth`, `date_of_death`: Date
     - `is_bunch`: true if the entity should be considered plural,
       for example a group of people
-- Relations:
+- **Relations:**
     - has 0 or 1 [User][]s (for every User created a related [Person][] is also created.)
-- Concerns:
+- **Concerns:**
     - [MetaData][] (as value)
 
 ## [Keyword][]
 
 - Keyword/Term belonging to a specific MetaKey
-- Attributes:
+- **Attributes:**
     - `term`: String
-- Relations:
+- **Relations:**
     - has exactly 1 [MetaKey][] as `creator`
     - has exactly 1 [User][] as `creator`
-- Concerns:
+- **Concerns:**
     - [MetaData][] (as value)
 
 
@@ -308,7 +309,7 @@ CREATE TABLE license_groups (
 
 - stores login credentials to directly log into the `webapp` (session than also valid for `api`)
 - *can* be "Admin"
-- Attributes:
+- **Attributes:**
     - `login`: String (alphanumeric characters, and `.`, `-`, `_` allowed)
     - `email`: String
     - `password`: String (saved as digest)
@@ -317,10 +318,9 @@ CREATE TABLE license_groups (
     - `notes`: String, ???
     - `autocomplete`: String, ???
     - `contrast_mode`: Bool, if constrast mode should be enabled in UI
-
-- Relations:
+- **Relations:**
     - has exactly 1 [Person][]
-- Concerns:
+- **Concerns:**
     - [Permissions][] (as subject)
 
 ## [Group][]
@@ -328,20 +328,20 @@ CREATE TABLE license_groups (
 - list of [User][]s
 - is manually defined by a [User][]
 - Supertype of [InstitutionalGroup][] (implemented in DB as `STI`-table)
-- Attributes:
+- **Attributes:**
     - `name`: String
-- Relations:
+- **Relations:**
     - has 1 or more [User][]s as *members*
-- Concerns:
+- **Concerns:**
     - [Permissions][] (as subject)
-    - Concerns:
+    - **Concerns:**
         - <mark>[MetaData][] (as value)</mark>
 
 ## [InstitutionalGroup][]
 
 - Subtype of [Group][]
 - externally-defined and synced from a `LDAP`-Directory.
-- Relations:
+- **Relations:**
     - has 1 or more [User][]s as *members*,
       which must have a User-ID from the same Directory.
 
@@ -349,27 +349,29 @@ CREATE TABLE license_groups (
 ## [ApiClient][]
 
 - an API client. Can use the `api` but not log into `webapp`.
-- Attributes:
+- **Attributes:**
     - `login`: String (alphanumeric characters, and `.`, `-`, `_` allowed)
     - `description`: String
     - `password`: String (saved as digest)
-- Relations:
+- **Relations:**
     - has 1 or more [User][]s as *administrative contact*
-- Concerns:
+- **Concerns:**
     - [Permissions][] (as subject)
 
 
 ## [Admin][]
 
-- A [User][]s that has **administrative privileges** for an instance
+- List of all [User][]s that have **administrative privileges** for the instance
+- **Relations:**
+    - has 0 or more [User][]s *as* `admin`
 
 
 ## [IoInterface][]
 
 - a list of [IoMapping][]s
-- Attributes:
+- **Attributes:**
     - `description`: String
-- Relations:
+- **Relations:**
     - has 1 or more [IoMapping][]s
 
 
@@ -378,11 +380,11 @@ CREATE TABLE license_groups (
 - maps a [MetaKey][] to defined properties ("keys") from external standards
 - used for import and export
     - Example: Maps "DublinCore Title" to "MadekCore Title"
-- Attributes:
+- **Attributes:**
     - `meta_key_id` character varying NOT NULL,
     - `key_map` character varying,
     - `key_map_type` character varying,
-- Relations:
+- **Relations:**
     - has exactly 1 [MetaKey][] ("maps this MetaKey")
     - has exactly 1 [IoInterface][] ("is in this IoInterface")
 
@@ -392,9 +394,9 @@ CREATE TABLE license_groups (
 - defines a "nice" URL *for* a Resource
 - does not change path structure, only allows a user defined "name" instead of `id`
     - example: `/madek/entries/123456` → `/madek/entries/my_entry`
-- Attributes:
+- **Attributes:**
     - `id`: String, alphanumeric, the "name" (**not a UUID**)
-- Relations:
+- **Relations:**
     - has exactly 1 [User][] *as* `creator` (inital creation by)
     - has exactly 1 [User][] *as* `updator` (last update by)
     - has exactly 1 Resource ([MediaEntry][], [Collection][] or [FilterSet][])
@@ -423,7 +425,7 @@ CREATE TABLE zencoder_jobs (
 - each instance has 0 or more U.
 - the most recently created U. is considered as the "latest Version"
 - application enforces acceptance of "latest Version"
-    - when [User][] logs into the Webapp, a modal dialog is shown
+    - when [User][] logs into the `webapp`, a modal dialog is shown
     - on acceptance, [User][].`usage_terms_accepted_at` is updated
 </mark>
 
@@ -464,7 +466,7 @@ pertaining to several different Resources is summarized as a *Concern*.
 
 ## [Responsibility][]
 
-- Relations:
+- **Relations:**
     - has exactly 1 [User][] *as* `creator`
     - has exactly 1 [User][] *as* `responsible`
 - for [MediaEntry][], [Collection][], [FilterSet][], there is always exactly 1 **owner**
@@ -477,7 +479,7 @@ pertaining to several different Resources is summarized as a *Concern*.
 
 - specific Resources can be "favorited" by Users
 - *Note: not implemented for [ApiClient][]s (but technically a [Collection][] could be used)*
-- Relations:
+- **Relations:**
     - has exactly 1 [User][]
     - has exactly 1 Resource ([MediaEntry][], [Collection][] or [FilterSet][])
 
@@ -526,9 +528,9 @@ The `subject` can be of type [User][], [Group][] or [ApiClient][],
 as well as *"Public"*.
 
 - For a single Permission:
-    - Attributes:
+    - **Attributes:**
         - (dynamic) 1 Bool per `action`
-    - Relations:
+    - **Relations:**
         - has exactly 1 Resource as `subject` ("Permissions are *on* this Resource")
         - has exactly 1 [User][] as `updator` (last changed by)
 
@@ -602,7 +604,7 @@ How to edit these docs and keep them up to date:
     - Columns → Attributes
         - Attributes of type UUID and/or join tables → Relations
 - Actions (and Views) can be found by either looking in the corresponding
-  controller in webapp (as well any included modules) and/or inspecting the
+  controller in `webapp` (as well any included modules) and/or inspecting the
   output of `rake routes`
 - for Relations a human-readable yet consistent format is used to indicate cardinality:
     - "exactly 1" (`NOT NULL`, with `UNIQUE` constraint)
@@ -688,8 +690,8 @@ CREATE TABLE visualizations (
 [Public Resources]: #public-resources
 [Relations]: #relations
 [Responsibility]: #responsibility
-[User]: #user
 [UsageTerm]: #usageterm
+[User]: #user
 [Vocabulary]: #vocabulary
 [ZencoderJob]: #zencoderjob
 <!-- external -->
