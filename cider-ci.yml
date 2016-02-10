@@ -14,7 +14,7 @@ jobs:
         build:
           scripts:
             # body: mkdocs build --clean && tar -czf docs.tgz build
-            body: true
+            body: echo 'disabled'
 
   trigger-rtfd:
     # TODO: maybe be more effcient, this triggers everything on all branches ending with 'master'
