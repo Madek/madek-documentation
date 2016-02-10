@@ -73,7 +73,7 @@ All of these are combined together using logical `AND`.
 }
 ```
 
-There are 5 usage options:
+There are the following usage options:
 
 1. for a specific `key` use an `uuid` as the `value` in case of a concrete related resource
 2. for a specific `key` use an arbitrary string via `match` to match in the respective DB column, depending on the type of the related resource, e.g. `people.searchable` or `keywords.term`, etc.
@@ -126,7 +126,7 @@ There are 4 usage options:
 1. use an `uuid` as `value` for `key` = `responsible_user`
 2. use an `uuid` as `value` for `key` = `entrusted_to_user`
 3. use an `uuid` as `value` for `key` = `entrusted_to_group`
-4. use `true`/`false` as `value` for `public`
+4. use `true`/`false` as `value` for `key` = `public`
 
 All the filter options inside `permissions` are combined using the logical `AND`.
 
