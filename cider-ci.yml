@@ -7,14 +7,13 @@ jobs:
     run-on: [{ type: branch, include-match: ".*" }]
 
     context:
-      traits: { mkdocs: true }
+      traits: { mkdocs: true, Cislave3: true }
       trial-attachments:
         docs: { glob: build.tgz, content-type: application/gzip }
       tasks:
         build:
           scripts:
-            # body: mkdocs build --clean && tar -czf docs.tgz build
-            body: echo 'disabled'
+            body: mkdocs build --clean && tar -czf docs.tgz build
 
   trigger-rtfd:
     # TODO: maybe be more effcient, this triggers everything on all branches ending with 'master'
