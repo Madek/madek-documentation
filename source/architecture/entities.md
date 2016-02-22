@@ -776,6 +776,6 @@ CREATE TABLE visualizations (
 [ZencoderJob]: #zencoderjob
 <!-- external -->
 [Decorator]: ../development/ui-framework/#decorators
-[Filter]: filters/
+[ResourceFilter]: ../architecture/resource_filters/
 [Presenter]: ../development/ui-framework/#presenters
 [madek_core_vocab_spec]: https://github.com/Madek/madek-datalayer/blob/master/db/migrate/165_migrate_core_keys.rb

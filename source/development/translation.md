@@ -1,5 +1,7 @@
 # Translation
 
+> **NOTE**: This is in flux at the moment (moving from YAMLs to CSV)
+
 > Rails Guide: [Rails Internationalization (I18n) API](http://guides.rubyonrails.org/i18n.html)
 
 Every String (snippet of text) in the Madek Webapp is not embedded in the source

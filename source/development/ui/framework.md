@@ -284,4 +284,4 @@ this is escpecially important for Combos, as they receive mostly (prerendered) c
     > While the old dialect still works, we strongly recommend using a cell as a view model." – [src](https://github.com/apotonick/cells/tree/31f6ed82b87b3f92613698442fae6fd61cc16de9#view-models)
 
 
-[Styleguide]: http://test.madek.zhdk.ch/styleguide/
+[Styleguide]: http://medienarchiv.zhdk.ch/styleguide

@@ -5,22 +5,23 @@ Madek Support Team](https://wiki.zhdk.ch/madek-hilfe/doku.php)
 
 ---
 
-See menu for Table of Contents.  
-Sections in 'implementation' only concern Developers.
+See menu for Table of Contents. Some highlights:
+
+- [Entities and Relations (Data Schema & Business Logic)](./entities/)
+- [Architecture Diagrams (Database, Services)](./architecture/)
 
 ---
+
+# TMP
 
 Below is the designated area for some yet-unsorted stuff,
 should be cleaned up before a release.
 
-
 ---
-
-## TMP
 
 ## Featurescape
 
-[in PDF Form here](manual/Featurescape_2.pdf)
+[in PDF Form here](http://medienarchiv.zhdk.ch/entries/featurescape)
 
 (Maintained by S. Schumacher)
 
