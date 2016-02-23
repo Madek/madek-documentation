@@ -8,7 +8,7 @@ jobs:
 
     context:
       traits: { mkdocs: true, Cislave3: true }
-      trial-attachments:
+      tree-attachments:
         docs: { glob: build.tgz, content-type: application/gzip }
       tasks:
         build:
