@@ -85,6 +85,8 @@ There are the following usage options:
 
 All the filter options inside `meta_data` are combined using the logical `AND`.
 
+Only the meta_data is searched, where the respective meta_keys belong to public vocabularies, which are visible by the logged in user.
+
 String matching via `match` is case-insensitive.
 
 ### `media_files` filter
