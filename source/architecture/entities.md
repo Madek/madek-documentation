@@ -276,13 +276,8 @@ A saved [Filter][].
     - `predicate` is the related [MetaKey][]
     - `object` is a list of one or more *Value*s
     - and in place of the `IRI` the `UUID` is used (internally)
-- valid data-types for values, by sub-type (implemented as STI + constraints)
-    - `MetaDatum::Text`: literal value (String)
-    - `MetaDatum::TextDate`: literal value (Date as String)
-    - `MetaDatum::Keywords`: [Keyword][]
-    - `MetaDatum::People`: [Person][]
-    - `MetaDatum::Licenses`: [License][]
-    - <mark>`MetaDatum::Groups`: [Group][]</mark>
+- valid data-types for values, by sub-type (see [below](#metadatumvalues))
+
 - **Attributes:**
     - `type`: type of [MetaDatumValue][]
     - `string`: the *Value* if it is a literal value (e.g. Text), *depends on `type`*
@@ -294,6 +289,20 @@ A saved [Filter][].
       *(It stores which [User][] created the MD., as well as for every single value)*
           - i.e. (if `type=Keywords`) → has 1 or more `MetaDatum::Keywords`
               - which has exactly 1 [User][] *as* "Creator" (`created_by_id`)
+
+### [MetaDatumValues][]
+
+These are the valid `type`s for a [MetaDatum][].
+
+- `MetaDatum::Text`: literal value (String)
+- `MetaDatum::TextDate`: literal value (Date as String)
+- `MetaDatum::Keywords`: [Keyword][]
+- `MetaDatum::People`: [Person][]
+- `MetaDatum::Licenses`: [License][]
+- <mark>`MetaDatum::Groups`: [Group][]</mark>
+
+Database note: implemented as STI + constraints, get the list with  
+`SELECT DISTINCT type FROM meta_data`
 
 
 ## [Person][]
@@ -755,7 +764,7 @@ CREATE TABLE visualizations (
 [MediaFile]: #mediafile
 [MetaData]: #metadata
 [MetaDatum]: #metadatum
-[MetaDatumValue]: #metadatumvalue
+[MetaDatumValue]: #metadatumvalues
 [MetaKey]: #metakey
 [Owner]: #owner
 [People]: #person
