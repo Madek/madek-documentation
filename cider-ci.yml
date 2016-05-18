@@ -32,6 +32,6 @@ jobs:
         all:
           scripts:
             body: |
-              for BRANCH in ts_master mk_master mfa_master mp_master; do
+              for BRANCH in ts_master mk_master mfa_master bw_master mp_master; do
                 curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
               done
