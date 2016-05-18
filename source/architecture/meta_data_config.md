@@ -77,6 +77,7 @@ Note that this makes it possible to "hide" certain Data from the Interface,
 for this reason there is always an option to list **all** [MetaData][] *by [Vocabulary][]*,
 e.g. inside the "All Data" Tab of the Detail view.
 
+
 ### Display
 
 - `AppSettings: context_for_show_summary`
