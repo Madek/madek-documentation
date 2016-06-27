@@ -14,7 +14,7 @@ any changes to the could lead to *editorial* challenges. See "Validation" below.
 > This is for historical reasons – to enable upgrades from version 2.
 > Many of these settings where either implicit or even hardcoded,
 > the default just match them and make them implicit.
-> **Feel free to just delete them and start fresh**
+> **Feel free to just delete them and start fresh.**
 
 [MetaData][] is organized in two ways: Vocabularies and Contexts.
 
