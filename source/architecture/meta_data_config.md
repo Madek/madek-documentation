@@ -25,17 +25,17 @@ are marked as "belonging to a specific institutional unit".
 
 1. Create a [Vocabulary][] `institution`
 1. Create a [MetaKey][] `institution:unit` of type `Keywords`
-1. Create a [Context][] `required_fields`
+1. Create a [Context][] `summary`
 1. Add [MetaKey][]s `madek_core:title` and `institution:unit` to this Context,
    set both to `require: true`
-1. Configure [AppSetting][] `contexts_for_validation` to `required_fields`
+1. Configure [AppSetting][]:
+    - `context_for_entry_summary` to `summary`
+    - `context_for_collections_summary` to `summary`
+    - `contexts_for_resource_edit` to `summary`
+    - `contexts_for_validation` to `summary`
 
 Now Entries can not be published or changed later on if those "fields" are missing.
-To also *show* this data on the Detail page in the `webapp`:
-
-1. Create a [Context][] `summary`
-1. Add [MetaKey][]s `madek_core:title` and `institution:unit` to this [Context][]
-1. Configure [AppSetting][] `context_for_show_summary` to `summary`
+MediaEntries and Collections will show this MetaData on their detail views.
 
 
 ## Vocabularies
@@ -77,16 +77,49 @@ Note that this makes it possible to "hide" certain Data from the Interface,
 for this reason there is always an option to list **all** [MetaData][] *by [Vocabulary][]*,
 e.g. inside the "All Data" Tab of the Detail view.
 
-### Display
+### Editing
 
-- `AppSettings: context_for_show_summary`
-    - **1** [Context][], the most important [MetaData][], e.g. show top right on detail view
-- `AppSettings: contexts_for_show_extra`
-    - up to 4 more [Context][]s to show on detail view
+- `AppSettings: contexts_for_resource_edit`: Contexts used in the edit formn, each as a tab.
+
+- the same settings is used for editing Entries and Collections,
+  the Settings of MetaKeys (i.e. `enabled_for_entries?`) still apply
+
+- ***Important:*** it is possible to configure MetaKeys for editing, but not for display,
+  for example by using different Contexts for these settings.
 
 ```figure
         ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓          
-        ┃ Resource Detail View (ex. MediaEntry)  ┃          
+        ┃           Resource Edit View           ┃          
+╔═══════╩━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╩═══════╗  
+║ ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐  ║  
+║  Edit Entry: (madek_core:title)                        ║  
+║ └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘  ║  
+║ ┌──┬───┬───┬───┬───┬───┐                               ║  
+║ │1 │ 2 │ 3 │ 4 │ 5 │ … │                               ║  
+║ ├──┴───┴───┴───┴───┴───┴─────────────────────────────┐ ║  
+║ │               ▲                                    │ ║  
+║ │ ┌──(media ─┐  ┗━━━━━━━━━━━━━━━━━━━┓                │ ║  
+║ │ │ preview) │                      ▼                │ ║  
+║ │ │          │              contexts_for_            │ ║  
+║ │ │          │              resource_edit            │ ║  
+║ │ │          │                                       │ ║  
+║ │ └──────────┘                                       │ ║  
+║ └────────────────────────────────────────────────────┘ ║  
+╚════════════════════════════════════════════════════════╝  
+```
+
+### Display
+
+#### MediaEntry Detail View
+
+- `AppSettings: context_for_entry_summary`
+    - **1** [Context][], the most important [MetaData][], e.g. show top right
+- `AppSettings: contexts_for_entry_extra`
+    - up to 4 more [Context][]s to show on bottom
+
+```figure
+        ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓          
+        ┃         MediaEntry Detail View         ┃          
 ╔═══════╩━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╩═══════╗  
 ║ ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐                          ║  
 ║   Title (madek_core:title)                             ║  
@@ -96,7 +129,7 @@ e.g. inside the "All Data" Tab of the Detail view.
 ║ │                         │  ┌────────────────────┐  │ ║  
 ║ │   ┌ ─ ─ ─ ─ ─ ─ ─ ┐     │  │                    │  │ ║  
 ║ │    context_for_         │  │                    │  │ ║  
-║ │   │show_summary   │     │  │  (media preview)   │  │ ║  
+║ │   │entry_summary  │     │  │  (media preview)   │  │ ║  
 ║ │    ─ ─ ─ ─ ─ ─ ─ ─      │  │                    │  │ ║  
 ║ │                         │  └────────────────────┘  │ ║  
 ║ │                         │                          │ ║  
@@ -105,10 +138,46 @@ e.g. inside the "All Data" Tab of the Detail view.
 ║ │                                                    │ ║  
 ║ │                                                    │ ║  
 ║ │          ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐           │ ║  
-║ │              contexts_for_show_extra               │ ║  
+║ │             contexts_for_entry_extra               │ ║  
 ║ │          └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘           │ ║  
 ║ │                                                    │ ║  
 ║ │                                                    │ ║  
+║ └────────────────────────────────────────────────────┘ ║  
+╚════════════════════════════════════════════════════════╝  
+```
+
+### Collections Detail View
+
+- `AppSettings: context_for_
+collection_summary`
+    - **1** [Context][], the most important [MetaData][], e.g. show top right
+
+
+```figure
+        ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓          
+        ┃         Collection Detail View         ┃          
+╔═══════╩━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╩═══════╗  
+║ ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐                          ║  
+║   Title (madek_core:title)                             ║  
+║ └ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┘                          ║  
+║ ┌─────────────────┬──────────────────────────────────┐ ║  
+║ │                 │                                  │ ║  
+║ │ ┌─────────────┐ │    ┌ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ┐     │ ║  
+║ │ │             │ │                                  │ ║  
+║ │ │   (media    │ │    │context_for_           │     │ ║  
+║ │ │  preview)   │ │     collection_summary           │ ║  
+║ │ │             │ │    │                       │     │ ║  
+║ │ └─────────────┘ │     ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─      │ ║  
+║ │                 │                                  │ ║  
+║ ├─────────────────┴──────────────────────────────────┤ ║  
+║ │  ┌───────────────────────────────────────────────┐ │ ║  
+║ │  │                                               │ │ ║  
+║ │  │                                               │ │ ║  
+║ │  │                 (Collection                   │ │ ║  
+║ │  │                  Children)                    │ │ ║  
+║ │  │                                               │ │ ║  
+║ │  │                                               │ │ ║  
+║ │  └───────────────────────────────────────────────┘ │ ║  
 ║ └────────────────────────────────────────────────────┘ ║  
 ╚════════════════════════════════════════════════════════╝  
 ```
