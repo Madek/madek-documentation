@@ -3,35 +3,35 @@ jobs:
   ## NOTE: disabled, trait is broken <https://ci.zhdk.ch/cider-ci/ui/workspace/trials/77208ee1-9ae2-4c59-9a7d-b9253b5593a1/scripts/body#stderr>
   build-docs:
     name: Build Docs
-    descriptions: Ensures docs can be built, attaches result for inspection
-    run-on: [{ type: branch, include-match: ".*" }]
+    description: Ensures docs can be built, attaches result for inspection
+    run_when:
+      always: { type: branch, include_match: ".*" }
 
     context:
-      traits: { mkdocs: true, Cislave3: true }
-      tree-attachments:
-        docs: { glob: build.tgz, content-type: application/gzip }
-      tasks:
-        build:
-          scripts:
-            # NOTE: <https://ci.zhdk.ch/cider-ci/ui/workspace/trials/0d62fdb8-14dd-4f50-9444-8f977e15cfaa/scripts/body>
-            # > WARNING - Config value: 'options'. Warning: Unrecognised configuration name: options
-            # > ERROR - Config value: 'theme'. Error: Unrecognised theme 'readthedocs'. The available installed themesare: 
-            # > Aborted with 1 Configuration Errors!
-            body: "echo 'disabled because mkdocs broke'"
-            # body: mkdocs build --clean && tar -czf docs.tgz build
+      task_defaults:
+        priority: 100 # runs seldom but fast
+        traits: { mkdocs: true, Cislave3: true }
+        tree_attachments:
+          docs: { include_match: build.tgz, content_type: application/gzip }
+      # NOTE: <https://ci.zhdk.ch/cider-ci/ui/workspace/trials/0d62fdb8-14dd-4f50-9444-8f977e15cfaa/scripts/body>
+      # > WARNING - Config value: 'options'. Warning: Unrecognised configuration name: options
+      # > ERROR - Config value: 'theme'. Error: Unrecognised theme 'readthedocs'. The available installed themesare:
+      # > Aborted with 1 Configuration Errors!
+      task: "echo 'disabled because mkdocs broke'"
+      # task: mkdocs build --clean && tar -czf docs.tgz build
 
   trigger-rtfd:
-    # TODO: maybe be more effcient, this triggers everything on all branches ending with 'master'
+    # TODO: maybe be more efficient, this always triggers everybodies branches.
     # NOTE: the master branch is triggered from github
     name: Trigger ReadTheDocs.org
-    run-on: [{ type: branch, include-match: "master$" }]
+    run_when:
+      on branches ending in master: { type: branch, include_match: "master$" }
 
     context:
-      traits: { curl: true }
-      tasks:
-        all:
-          scripts:
-            body: |
-              for BRANCH in ts_master mk_master mfa_master bw_master mp_master; do
-                curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
-              done
+      task_defaults:
+        traits: { curl: true }
+        priority: 100 # runs seldom but fast
+      task: |
+        for BRANCH in ts_master mk_master mfa_master bw_master mp_master; do
+          curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
+        done
