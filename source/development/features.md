@@ -1,24 +1,8 @@
 # Features
 
-<style>
-mark { background: rgba(255, 255, 0, 0.5); font-style: normal; font-weight: normal; white-space: pre; display: inline-block;  }
-
-/* Mark todo in docs: */
-mark[todo] { padding: 1em; font-family: monospace }
-mark[todo]::before { content: '* * * TODO * * *' }
-mark[unclear] { padding: 0.35em }
-
-/* Mark todo in code: */
-mark[untested] { background-color: #eee }
-mark[future] { background-color: rgba(147, 38, 251, 0.43); font-family: monospace; padding-bottom: 1em }
-mark[future]::before { content: '* * * NOT IMPLEMENTED * * *' }
-</style>
-
 <mark todo>
 Temporary list, to be moved to a "Manual/Guide" section.
 </mark>
-
-# App Views
 
 # "My Madek"
 
@@ -38,7 +22,7 @@ the dashboard itself shows a reduced view of its contents.
 ## "My Drafts"
 
 Resources-List, shows all drafts (MediaEntries) that
-were <mark unclear>created by</mark> the user.  
+were <mark unclear>created by</mark> the user.
 ***This is the only place where draft are listed!***
 
 ## "My Entries"
@@ -78,24 +62,59 @@ Resources-List, shows all Sets that were *entrusted* to the user.
 
 ## "My Groups"
 
-View on dashboard: List of Users Goups <mark unclear>which?</mark>
+View on dashboard: List of Users Goups <mark question>which?</mark>
 
 Subsection view: Group Management Interface
 
 - list all internal, system and external Groups
 - Create, Edit, Delete internal groups
 
+# "Explore"
 
-## App Features
+A explore section for public as well as a logged in user. It consists of predefined, configurable (`app_settings` in DB) subsections, which serve as entry points for explorative navigation across the selected media content.
 
-### Usage Terms
+- is reachable via main nav ("Explore")
+- is integrated in the root page (login page)
 
-- admin can add usage terms
-- if there are usage terms, any logged in user **must** accept them
-  before any other action is allowed
-- <mark future>admin can *edit existing usage terms*. This is for fixing small errors,
-  not substantial changes, because it's acceptance won't be enforced again.</mark>
-- admin can add *new usage terms*, then users have to accept these new terms
+The explore has various "Subsections".
+They are listed in the sidebar,
+the explore itself shows a reduced view of its contents.
+
+## ["Explore Teaser Entries"][]
+
+This is a collection of pre-defined [MediaEntries]. They are all inside of a specific [Collection] defined in DB as `app_settings.teaser_set_id`. The amount is limited to *12*. They are NOT part of the individual subsection pages.
+
+## ["Explore Catalog"][]
+
+This is a selection of pre-defined ContextKeys (DB: `context_keys`), where `context_id = 'upload'` and `meta_key_id IN app_settings.context_keys`.
+
+### "Explore Catalog Category"
+
+This is a further sub-section which contains values, normally [Keywords], for the particular [MetaKey] of that [ContextKey] (`context_keys.meta_key_id`). Click on a particular [Keyword] triggers a filtered search for that [Keyword]. One leaves the explore section this way.
+
+## ["Explore Featured Content"][]
+
+This is a collection of pre-defined content, which may consists of [MediaEntries], [Collections] and [FilterSets] (Ruby: `collection.child_media_resources`). The specific collection is defined in DB as `app_settings.featured_set_id`.
+
+## "Explore Most Used Keywords"
+
+This section consists of a list of limited number of [Keywords] for the [MetaKey] `madek_core:keywords` sorted in descendent order according to their usage count (most used first).
+
+## "Login Teaser Entries"
+
+Same as ["Explore Teaser Entries"][] except for the limit and missing meta data like title and authors.
+
+## "Login Catalog"
+
+Same as ["Explore Catalog"][].
+
+## "Login Featured Content"
+
+Same as ["Explore Featured Content"][].
+
+## "Login Latest Media Entries"
+
+This section consists of a limited list of the latest [MediaEntries] (sorted in descendant manner by `media_entries.created_at`).
 
 # Concepts
 
@@ -103,3 +122,20 @@ Subsection view: Group Management Interface
 
 A resource that is not publicly viewable,
 but the user has view permissions (either directly or via a Group).
+
+[MediaEntry]: /architecture/entities/#mediaentry
+[MediaEntries]: /architecture/entities/#mediaentry
+[Collection]: /architecture/entities/#collection
+[Collections]: /architecture/entities/#collection
+[FilterSet]: /architecture/entities/#filterset
+[FilterSets]: /architecture/entities/#filterset
+[Context]: /architecture/entities/#context
+[ContextKey]: /architecture/entities/#contextkey
+[Keyword]: /architecture/entities/#keyword
+[Keywords]: /architecture/entities/#keyword
+[MetaKey]: /architecture/entities/#metakey
+[MetaKeys]: /architecture/entities/#metakey
+
+["Explore Teaser Entries"]: #explore-teaser-entries
+["Explore Catalog"]: #explore-catalog
+["Explore Featured Content"]: #explore-featured-content
