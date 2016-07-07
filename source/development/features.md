@@ -18,6 +18,8 @@ mark[future]::before { content: '* * * NOT IMPLEMENTED * * *' }
 Temporary list, to be moved to a "Manual/Guide" section.
 </mark>
 
+# App Views
+
 # "My Madek"
 
 A dashboard for a logged in Madek User.
@@ -36,7 +38,7 @@ the dashboard itself shows a reduced view of its contents.
 ## "My Drafts"
 
 Resources-List, shows all drafts (MediaEntries) that
-were <mark unclear>created by</mark> the user.
+were <mark unclear>created by</mark> the user.  
 ***This is the only place where draft are listed!***
 
 ## "My Entries"
@@ -76,13 +78,24 @@ Resources-List, shows all Sets that were *entrusted* to the user.
 
 ## "My Groups"
 
-View on dashboard: List of Users Goups <mark question>which?</mark>
+View on dashboard: List of Users Goups <mark unclear>which?</mark>
 
 Subsection view: Group Management Interface
 
 - list all internal, system and external Groups
 - Create, Edit, Delete internal groups
 
+
+## App Features
+
+### Usage Terms
+
+- admin can add usage terms
+- if there are usage terms, any logged in user **must** accept them
+  before any other action is allowed
+- <mark future>admin can *edit existing usage terms*. This is for fixing small errors,
+  not substantial changes, because it's acceptance won't be enforced again.</mark>
+- admin can add *new usage terms*, then users have to accept these new terms
 
 # Concepts
 
