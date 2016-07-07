@@ -10,7 +10,7 @@ jobs:
     context:
       task_defaults:
         priority: 100 # runs seldom but fast
-        traits: { mkdocs: true, Cislave3: true }
+        # traits: { mkdocs: true, Cislave3: true }
         tree_attachments:
           docs: { include_match: build.tgz, content_type: application/gzip }
       # NOTE: <https://ci.zhdk.ch/cider-ci/ui/workspace/trials/0d62fdb8-14dd-4f50-9444-8f977e15cfaa/scripts/body>
