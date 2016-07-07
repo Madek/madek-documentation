@@ -1,5 +1,19 @@
 # Features
 
+<style>
+mark { background: rgba(255, 255, 0, 0.5); font-style: normal; font-weight: normal; white-space: pre; display: inline-block;  }
+
+/* Mark todo in docs: */
+mark[todo] { padding: 1em; font-family: monospace }
+mark[todo]::before { content: '* * * TODO * * *' }
+mark[unclear] { padding: 0.35em }
+
+/* Mark todo in code: */
+mark[untested] { background-color: #eee }
+mark[future] { background-color: rgba(147, 38, 251, 0.43); font-family: monospace; padding-bottom: 1em }
+mark[future]::before { content: '* * * NOT IMPLEMENTED * * *' }
+</style>
+
 <mark todo>
 Temporary list, to be moved to a "Manual/Guide" section.
 </mark>
