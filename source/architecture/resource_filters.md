@@ -24,7 +24,7 @@ This method defines its own `SQL` generation logic and behaves as any other `Act
     { "not_key": "media_object:patron" }
   ],
   "media_files": [
-    { "key": "content_type", "value": "image/jpeg" },
+    { "key": "media_type", "value": "image/jpeg" },
     { "key": "extension", "value": "jpg" }
   ],
   "permissions": [
@@ -94,7 +94,7 @@ String matching via `match` is case-insensitive.
 ```json
 {
   "media_files": [
-    { "key": "content_type", "value": "image/jpeg" },
+    { "key": "media_type", "value": "image/jpeg" },
     { "key": "extension", "value": "any" }
   ]
 }
@@ -191,7 +191,7 @@ dynamic_filters:
   media_files:                # type of Filter
     - uuid: media_files       # name of this section (only for UI)
       children:
-        - uuid: content_type  # a key for this filter
+        - uuid: media_type  # a key for this filter
           children:
             - uuid: image     # a value for this filter
         - uuid: extension
