@@ -12,9 +12,9 @@ The distinction is just for clarity.
 A major component is the **[MetaData][]** Concern, which
 implements an [RDF-based Schema](http://www.w3.org/TR/rdf11-concepts/)
 and therefore shares many similarites with
-[RDF Schema (RDFS)](http://www.w3.org/TR/rdf-schema/).  
+[RDF Schema (RDFS)](http://www.w3.org/TR/rdf-schema/).
 
-Relationship to RDF(S) terms is indicated where applicable,  
+Relationship to RDF(S) terms is indicated where applicable,
 Resources themselves correspond to
 [RDFS Resources](http://www.w3.org/TR/rdf-schema/#ch_resource).
 
@@ -50,7 +50,7 @@ Resources themselves correspond to
 
 - most important Resource in the App
 - **Attributes:**
-    - `is_published`: default `false` ("unpublished"), set to `true` via the `publish` action.  
+    - `is_published`: default `false` ("unpublished"), set to `true` via the `publish` action.
       Can only be changed once! *(That means there is no "unpublish" action)*
 - **Relations:**
     - has exactly 1 [MediaFile][]
@@ -132,7 +132,7 @@ A saved [Filter][].
     - `content_type`: like mime-type, e.g. 'image/jpeg'
     - `media_type`: String (image|audio|video|document)
     - `height`, `width`: Dimensions in pixels (for images and videos)
-    - `size`: the file size in bytes  
+    - `size`: the file size in bytes
     - `meta_data`: file meta data (EXIF, IPTC, etc), **NOT** [MetaData][]!
     - `access_hash`: String, <mark>???</mark>
     - `guid`: String, <mark>???</mark>
@@ -147,10 +147,10 @@ A saved [Filter][].
 
 - **Attributes:**
     - `filename`: String, internal filename (after conversion)
-    - `height`, `width`, `content_type`, `media_type`:  
+    - `height`, `width`, `content_type`, `media_type`:
        same meaning as in [MediaFile][], but pertains to the converted file
     - <mark>`thumbnail`: String, one of the "configured sizes" for Previews,
-      one of `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`  
+      one of `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`
       (*Note: found with* `SELECT DISTINCT thumbnail FROM previews`)
 - **Relations:**
     - belongs to exactly 1 [MediaFile][]
@@ -200,15 +200,14 @@ A saved [Filter][].
     - `description`: String, description for data input and output
     - `hint`: String, hint data input only
     - `admin_comment`: String, **internal** comment for Admins only
-    - `position`: Number, order inside the [Vocabulary][]  
+    - `position`: Number, order inside the [Vocabulary][]
         *Note: has no semantic meaning, only effect is displayed order in Admin UI)*
     - `meta_datum_object_type`: type of [MetaDatumValue][]
-    - `is_enabled_for_{type}`: Bool,  
+    - `is_enabled_for_{type}`: Bool,
       valid types: [MediaEntry][], [Collection][], [FilterSet][]
-    - `is_extensible_list`: Bool <mark>???</mark>
     - `keywords_alphabetical_order`: Bool, (when type is [Keyword][]s)
       signifies if they should be displayed in alphabetical order
-    - `is_extensible`: Bool, (when type is [Keyword][]s)
+    - `is_extensible_list`: Bool, (when type is [Keyword][]s)
       determines if additional [Keyword][]s may be created while editing [MetaData][]
 - **Relations:**
     - belongs to exactly 1 [Vocabulary][] ("is in the Vocabulary")
@@ -235,10 +234,10 @@ A saved [Filter][].
     - `label`: String, human-readable name
     - `description`: String
 - **Relations:**
-    - has 0 or more [MetaKey][]s *as* [ContextKey][]s  
+    - has 0 or more [MetaKey][]s *as* [ContextKey][]s
       ("specifies how the MetaKey is used in this Context")
-    - can belong to 0 or 1 of each of these [AppSetting][]s:  
-      `ui_summary_context`, `ui_extra_contexts`, `ui_list_contexts`  
+    - can belong to 0 or 1 of each of these [AppSetting][]s:
+      `ui_summary_context`, `ui_extra_contexts`, `ui_list_contexts`
       (Ex.: "This context is used as the 'Summary Context'")
 
 
@@ -285,7 +284,7 @@ A saved [Filter][].
     - has exactly 1 [MetaKey][]
     - has exactly 1 Resource (valid types: [MediaEntry][], [Collection][], [FilterSet][])
     - has exactly 1 [User][] *as* "Creator" (`created_by_id`)
-    - **Non-literal types have additional Attributes on their relations!**  
+    - **Non-literal types have additional Attributes on their relations!**
       *(It stores which [User][] created the MD., as well as for every single value)*
           - i.e. (if `type=Keywords`) → has 1 or more `MetaDatum::Keywords`
               - which has exactly 1 [User][] *as* "Creator" (`created_by_id`)
@@ -301,7 +300,7 @@ These are the valid `type`s for a [MetaDatum][].
 - `MetaDatum::Licenses`: [License][]
 - <mark>`MetaDatum::Groups`: [Group][]</mark>
 
-Database note: implemented as STI + constraints, get the list with  
+Database note: implemented as STI + constraints, get the list with
 `SELECT DISTINCT type FROM meta_data`
 
 
@@ -608,8 +607,8 @@ specific compiled Previews (the generic thumbnail is )
 ```
 
 Permissions are a kind of ACL (Access-Controll-List)
-on a specific **Resource**.  
-A Permission allows an **`action`** for a **`subject`**.  
+on a specific **Resource**.
+A Permission allows an **`action`** for a **`subject`**.
 The `subject` can be of type [User][], [Group][] or [ApiClient][],
 as well as *"Public"*.
 
