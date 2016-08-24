@@ -402,6 +402,16 @@ CREATE TABLE license_groups (
     - has 1 or more [User][]s as *members*,
       which must have a User-ID from the same Directory.
 
+## [AuthenticationGroup][]
+
+- Subtype of [Group][]
+- there is 1 for `AuthenticationGroup` defined for every external authentication method
+  - right now, the only one supported is the "ZHdK-AGW", so instances using
+    it (via the `madek-zhdk-integration` plugin) will have 1 "ZHdK" AuthenticationGroup.
+- **Relations:**
+    - has 1 or more [User][]s as *members*,
+      always contains those that are using this particular authentication.
+
 
 ## [ApiClient][]
 
@@ -743,6 +753,7 @@ CREATE TABLE visualizations (
 [Admin]: #admin
 [ApiClient]: #apiclient
 [AppSetting]: #appsetting
+[AuthenticationGroup]: #authenticationgroup
 [Collection]: #collection
 [Concerns]: #concerns
 [Context]: #context
