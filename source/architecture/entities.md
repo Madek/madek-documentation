@@ -650,6 +650,7 @@ combine the following:
 | ↳ [ApiClient][]      | ✔                           | -                                                | ✔                                        | -                             |
 | ↳ "public"         | ✔                           | -                                                | ✔                                        | -                             |
 | *Beschreibung*     | betrachten                  | Metadaten editieren                              | Original exportieren & in PDF blättern   | Zugriffsberechtigungen ändern |
+| *tech. notes*      | includes accessing data **about the related [MediaFile][]!** |                                                  | full access **to the related [MediaFile][]!**   | |
 |                    |                             |                                                  |                                          |                               |
 |                    |                             |                                                  |                                          |                               |
 | **[Collection][]**     | get metadata and previews   | edit metadata **and relations**                  | -                                        | edit permissions              |
