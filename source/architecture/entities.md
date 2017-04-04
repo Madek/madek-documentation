@@ -385,7 +385,9 @@ CREATE TABLE license_groups (
 
 - list of [User][]s
 - is manually defined by a [User][]
-- Supertype of [InstitutionalGroup][] (implemented in DB as `STI`-table)
+- is managed by the [User][] who are members of the Group
+- also the supertype of [AuthenticationGroup][] and [InstitutionalGroup][] (implemented in DB as `STI`-table),
+  both relating to external authentication systems
 - **Attributes:**
     - `name`: String
 - **Relations:**
@@ -394,23 +396,29 @@ CREATE TABLE license_groups (
     - [Permissions][] (as `subject`)
     - <mark>[MetaData][] (as `value`)</mark>
 
-## [InstitutionalGroup][]
-
-- Subtype of [Group][]
-- externally-defined and synced from a `LDAP`-Directory.
-- **Relations:**
-    - has 1 or more [User][]s as *members*,
-      which must have a User-ID from the same Directory.
-
 ## [AuthenticationGroup][]
 
 - Subtype of [Group][]
-- there is 1 for `AuthenticationGroup` defined for every external authentication method
-  - right now, the only one supported is the "ZHdK-AGW", so instances using
-    it (via the `madek-zhdk-integration` plugin) will have 1 "ZHdK" AuthenticationGroup.
+- there is 1 "system" Group called "Signed-in Users" which all users automatically
+  join on login (usefor for giving [Permissions][] to "everyone but public"/)
+- additionally, there can be 1 for `AuthenticationGroup` for every external authentication method.
+  - for example, instances using the "ZHdK-AGW"
+    (via the `madek-zhdk-integration` plugin) will have 1 "ZHdK" AuthenticationGroup.
 - **Relations:**
     - has 1 or more [User][]s as *members*,
       always contains those that are using this particular authentication.
+
+## [InstitutionalGroup][]
+
+- Subtype of [Group][]
+- managed by the same external authentication integrations that have their own [AuthenticationGroup][],
+  can be used by them to create InstitutionalGroups and manage their [Users][]s according
+  to their internal logic
+  - for example, the `madek-zhdk-integration` plugin can sync `LDAP` groups
+
+- **Relations:**
+    - has 1 or more [User][]s as *members*,
+      which must have a User-ID from the same Directory.
 
 
 ## [ApiClient][]
