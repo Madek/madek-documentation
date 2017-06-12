@@ -247,7 +247,6 @@ Rather, the validation will be enforced the next time it is *updated*.
 [CustomURL]: ./entities/#customurl
 [Entrusted Resource]: ./entities/#entrusted-resources
 [Favoritable]: ./entities/#favoritable
-[FilterSet]: ./entities/#filterset
 [Group]: ./entities/#group
 [InstitutionalGroup]: ./entities/#institutionalgroup
 [IoInterface]: ./entities/#iointerface

@@ -69,18 +69,18 @@ Resources themselves correspond to
 
 ```figure
 ┏━━━━━━━━━━━━━━┓       ┏━━━━━━━━━━━━━━┓
-┃              ┃       ┃  MediaEntry  ┃
-┃              ┃──────▶┃      or      ┃
-┃  Collection  ┃──────▶┃  Collection  ┃
-┃              ┃──────▶┃      or      ┃
-┃              ┃       ┃  FilterSet   ┃
+┃              ┃       ┃              ┃
+┃              ┃──────▶┃  MediaEntry  ┃
+┃  Collection  ┃──────▶┃      or      ┃
+┃              ┃──────▶┃  Collection  ┃
+┃              ┃       ┃              ┃
 ┗━━━━━━━━━━━━━━┛       ┗━━━━━━━━━━━━━━┛
 ```
 
 - **Relations:**
     - has 0 or more Resources *as* `child_media_resources`
       ("The Resources are *in* the Collection")
-        - type of Resources has to be [MediaEntry][] or [Collection][] or [FilterSet][]
+        - type of Resources has to be [MediaEntry][] or [Collection][]
         - 0 or 1 [MediaEntry][] *as* `cover`
         - 0 or more Resources *as* `highlight`
 - **Concerns:**
@@ -92,25 +92,6 @@ Resources themselves correspond to
     - [CustomURL][]
 - **Views:** `index`, `show`, `new`, <mark>`edit_meta_data`</mark>
 - **Actions:** `create` ("Upload"), `publish`, `meta_data_update`, `destroy` (deletion)
-
-
-## [FilterSet][]
-
-A saved [Filter][].
-
-- **Attributes:**
-    - `definition`: the saved [Filter][] (in `JSON`-format).
-- Derived Attributes:
-    - 0 or more [MediaEntries][] that match the Filter `definition`.
-- **Concerns:**
-    - [Responsibility][]
-    - [MetaData][] (*as* `subject`)
-    - [Permissions][] (*as* `subject`)
-    - [Previewable][]
-    - [Favoritable][]
-    - [CustomURL][]
-- **Views:** `index`, `show`, <mark>`edit`</mark>
-- **Actions:** `create`,`update`, `destroy` (deletion)
 
 
 ## [MediaFile][]
@@ -204,7 +185,7 @@ A saved [Filter][].
         *Note: has no semantic meaning, only effect is displayed order in Admin UI)*
     - `meta_datum_object_type`: type of [MetaDatumValue][]
     - `is_enabled_for_{type}`: Bool,
-      valid types: [MediaEntry][], [Collection][], [FilterSet][]
+      valid types: [MediaEntry][], [Collection][]
     - `keywords_alphabetical_order`: Bool, (when type is [Keyword][]s)
       signifies if they should be displayed in alphabetical order
     - `is_extensible_list`: Bool, (when type is [Keyword][]s)
@@ -282,7 +263,7 @@ A saved [Filter][].
     - `string`: the *Value* if it is a literal value (e.g. Text), *depends on `type`*
 - **Relations:**
     - has exactly 1 [MetaKey][]
-    - has exactly 1 Resource (valid types: [MediaEntry][], [Collection][], [FilterSet][])
+    - has exactly 1 Resource (valid types: [MediaEntry][], [Collection][])
     - has exactly 1 [User][] *as* "Creator" (`created_by_id`)
     - **Non-literal types have additional Attributes on their relations!**
       *(It stores which [User][] created the MD., as well as for every single value)*
@@ -501,7 +482,7 @@ CREATE TABLE app_settings (
 - **Relations:**
     - has exactly 1 [User][] *as* `creator` (inital creation by)
     - has exactly 1 [User][] *as* `updator` (last update by)
-    - has exactly 1 Resource ([MediaEntry][], [Collection][] or [FilterSet][])
+    - has exactly 1 Resource ([MediaEntry][], [Collection][])
 
 ## [ZencoderJob][]
 
@@ -572,7 +553,7 @@ pertaining to several different Resources is summarized as a *Concern*.
 - **Relations:**
     - has exactly 1 [User][] *as* `creator`
     - has exactly 1 [User][] *as* `responsible`
-- for [MediaEntry][], [Collection][], [FilterSet][], there is always exactly 1 **owner**
+- for [MediaEntry][], [Collection][], there is always exactly 1 **owner**
     - => **`responsible_user`**: [User][]
 - has super-permission **"Delete and Change owner"** (Löschen und Verantwortlichkeit übertragen)
 - **implicitly has all the granular permissions** listed below (if applicable)
@@ -584,7 +565,7 @@ pertaining to several different Resources is summarized as a *Concern*.
 - *Note: not implemented for [ApiClient][]s (but technically a [Collection][] could be used)*
 - **Relations:**
     - has exactly 1 [User][]
-    - has exactly 1 Resource ([MediaEntry][], [Collection][] or [FilterSet][])
+    - has exactly 1 Resource ([MediaEntry][], [Collection][])
 
 ## [Previewable][]
 
@@ -665,15 +646,7 @@ combine the following:
 | ↳ [Group][]          | ✔                           | ✔                                                | -                                        | -                             |
 | ↳ [ApiClient][]      | ✔                           | ✔                                                | -                                        | -                             |
 | ↳ "public"         | ✔                           | -                                                | -                                        | -                             |
-| *Beschreibung*     | betrachten                  | Metadaten editieren & Inhalte hinzufügen         | -                                        | Zugriffsberechtigungen ändern |
-|                    |                             |                                                  |                                          |                               |
-|                    |                             |                                                  |                                          |                               |
-| **[FilterSet][]**    | get metadata and previews   | edit metadata **and filter**                     | -                                        | edit permissions              |
-| ↳ [User][]           | ✔                           | ✔                                                | -                                        | ✔                             |
-| ↳ [Group][]          | ✔                           | -                                                | -                                        | -                             |
-| ↳ [ApiClient][]      | ✔                           | ✔                                                | -                                        | -                             |
-| ↳ "public"         | ✔                           | -                                                | -                                        | -                             |
-| *Beschreibung*     | betrachten                  | Metadaten editieren & Filtereinstellungen ändern | -                                        | Zugriffsberechtigungen ändern |
+| *Beschreibung*     | betrachten                  | Metadaten editieren & Inhalte hinzufügen         | -                                        | Zugriffsberechtigungen ändern |                             
 
 
 ## [Entrusted Resource][]s
@@ -735,8 +708,7 @@ CREATE TABLE edit_sessions (
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     media_entry_id uuid,
     collection_id uuid,
-    filter_set_id uuid,
-    CONSTRAINT edit_sessions_is_related CHECK ((((((media_entry_id IS NULL) AND (collection_id IS NULL)) AND (filter_set_id IS NOT NULL)) OR (((media_entry_id IS NULL) AND (collection_id IS NOT NULL)) AND (filter_set_id IS NULL))) OR (((media_entry_id IS NOT NULL) AND (collection_id IS NULL)) AND (filter_set_id IS NULL))))
+    CONSTRAINT edit_sessions_is_related CHECK ((((((media_entry_id IS NULL) AND (collection_id IS NULL))) OR (((media_entry_id IS NULL) AND (collection_id IS NOT NULL)))) OR (((media_entry_id IS NOT NULL) AND (collection_id IS NULL)))))
 );
 
 CREATE TABLE full_texts (
@@ -770,7 +742,6 @@ CREATE TABLE visualizations (
 [CustomURL]: #customurl
 [Entrusted Resource]: #entrusted-resources
 [Favoritable]: #favoritable
-[FilterSet]: #filterset
 [Group]: #group
 [InstitutionalGroup]: #institutionalgroup
 [IoInterface]: #iointerface

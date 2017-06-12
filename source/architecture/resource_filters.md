@@ -2,7 +2,7 @@
 
 Internal spec for filtering collections in Madek.
 
-Each of the 3 types of media resources, namely `MediaEntry`, `Collection` and `FilterSet` implements a class method `filter_by`.
+Each of the 2 types of media resources, namely `MediaEntry`, `Collection` implements a class method `filter_by`.
 This method defines its own `SQL` generation logic and behaves as any other `ActiveRecord` scope method, and thus it's also chainable.
 
 ## Full usage example
@@ -164,14 +164,14 @@ This is used to provide a familiar "filter-browsing" workflow for working with l
 
 ## Presenter
 
-For a *scope* (listing) of MediaEntries, Collections, FilterSets or MediaResources
+For a *scope* (listing) of MediaEntries, Collections or MediaResources
 "DynamicFilters" Presenter outputs a list of "possible" Filters *for each kind
 of Filter*.
 
 Dynamic because:
 
 - always for a specific resource type (e.g. only MediaEntries have MediaFiles to filter for)
-- considers the current scope (already including Permissions checks), might even be pre-filtered by a specific view like `Person#show` or `FilterSet#show`)
+- considers the current scope (already including Permissions checks), might even be pre-filtered by a specific view like `Person#show`)
 - builds 'meta_data' sections for the currently configured [Vocabularies][]/[MetaKeys][]
 
 For [Permissions][]:
@@ -235,13 +235,9 @@ If a filter key is marked `multi: true`, more than one value can be
 added at the same time. It is also possible to select the key itself
 to filter for "any value" (checkbox on right).
 
-If a Polybox instance is marked (`saveable: true`), it can be saved as a
-FilterSet. This functionality is only implemented for non-prefiltered lists
-(it works on 'MediaEntry#index', not on 'Person#show').
-
 ## Usage Examples
 
-- 'MediaEntry-', 'Collection-' and 'FilterSet-#index' Views all show
+- 'MediaEntry-', 'Collection-#index' Views all show
   a title and a Polybox for their index.
 
 - 'Person#Show' shows basic information about the Person,
@@ -251,5 +247,4 @@ FilterSet. This functionality is only implemented for non-prefiltered lists
 
 [MediaEntry]: <./entities/#mediaentry>
 [Collection]: <./entities/#collection>
-[FilterSet]: <./entities/#filterset>
 [Permissions]: <./entities/#permissions>

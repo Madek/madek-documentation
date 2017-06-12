@@ -68,8 +68,6 @@
 |keywords|GET|/keywords(.:format)|keywords#index |
 |meta_terms|GET|/meta_terms(.:format)|meta_terms#index |
 |copyrights|GET|/copyrights(.:format)|copyrights#index |
-|edit_filter_set|GET|/filter_sets/:id/edit(.:format)|filter_sets#edit |
-|filter_set|GET|/filter_sets/:id(.:format)|filter_sets#show |
 |edit_multiple_media_entries|GET|/entries/edit_multiple(.:format)|media_entries#edit_multiple |
 |image_media_entry|GET|/entries/:id/image(.:format)|media_resources#image |
 |map_media_entry|GET|/entries/:id/map(.:format)|media_entries#map |
