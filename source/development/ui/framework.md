@@ -264,7 +264,6 @@ this is escpecially important for Combos, as they receive mostly (prerendered) c
     - <https://github.com/zhdk/madek/blob/d588d0a9592eee5395b456fc191d92a73b5faba8/app/views/media_resources/_actions.html.haml>
     - <https://github.com/zhdk/madek/blob/d588d0a9592eee5395b456fc191d92a73b5faba8/app/views/media_entries/_actions.html.haml>
     - <https://github.com/zhdk/madek/blob/d588d0a9592eee5395b456fc191d92a73b5faba8/app/views/media_sets/_actions.html.haml>
-    - <https://github.com/zhdk/madek/blob/d588d0a9592eee5395b456fc191d92a73b5faba8/app/views/filter_sets/_actions.html.haml>
 
 - <http://pathfindersoftware.com/2008/07/pretty-blocks-in-rails-views/>
 - "Rails Builders" - formbuilder, jbuilder, xmlbuilder, …

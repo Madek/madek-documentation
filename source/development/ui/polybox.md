@@ -13,13 +13,13 @@ All possible cases are [documented](./Filters/) as examples in `JSON` format.
 
 ### Presenter
 
-For a *scope* (listing) of MediaEntries, Collections, FilterSets or MediaResources
+For a *scope* (listing) of MediaEntries, Collections or MediaResources
 "DynamicFilters" Presenter outputs a list of "possible" Filters *for each kind
 of Filter*.
 
 Dynamic because:
 - always for a specific resource type (e.g. only MediaEntries have MediaFiles to filter for)
-- considers the current scope (already including Permissions checks), might even be pre-filtered by a specific view like `Person#show` or `FilterSet#show`)
+- considers the current scope (already including Permissions checks), might even be pre-filtered by a specific view like `Person#show`)
 - builds sections for the currenty configured [Vocabularies][]/[MetaKeys][]
 
 For [Permissions][]:

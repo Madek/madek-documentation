@@ -94,7 +94,7 @@ This is a further sub-section which contains values, normally [Keywords], for th
 
 ## ["Explore Featured Content"][]
 
-This is a collection of pre-defined content, which may consists of [MediaEntries], [Collections] and [FilterSets] (Ruby: `collection.child_media_resources`). The specific collection is defined in DB as `app_settings.featured_set_id`.
+This is a collection of pre-defined content, which may consists of [MediaEntries], [Collections] (Ruby: `collection.child_media_resources`). The specific collection is defined in DB as `app_settings.featured_set_id`.
 
 ## "Explore Most Used Keywords"
 
@@ -127,8 +127,6 @@ but the user has view permissions (either directly or via a Group).
 [MediaEntries]: /architecture/entities/#mediaentry
 [Collection]: /architecture/entities/#collection
 [Collections]: /architecture/entities/#collection
-[FilterSet]: /architecture/entities/#filterset
-[FilterSets]: /architecture/entities/#filterset
 [Context]: /architecture/entities/#context
 [ContextKey]: /architecture/entities/#contextkey
 [Keyword]: /architecture/entities/#keyword
