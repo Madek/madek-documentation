@@ -356,7 +356,6 @@ CREATE TABLE license_groups (
     - <mark>`zhdkid`: Number, …</mark>
     - `notes`: String, ???
     - `autocomplete`: String, ???
-    - `contrast_mode`: Bool, if constrast mode should be enabled in UI
 - **Relations:**
     - has exactly 1 [Person][]
 - **Concerns:**
