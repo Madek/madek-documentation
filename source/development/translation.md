@@ -21,8 +21,11 @@ Ex.: <https://github.com/Madek/madek-webapp/search?utf8=✓&q=sitemap_my_archive
 
 # Translator Guidelines
 
-Start a new translation by opening the `translations.csv` file in a
+Edit translations or start a new one by opening the `translations.csv` file in a
 spreadsheet editor (LibreOffice, Google Docs, Excel).  
+
+This file is found in the `madek-webapp` repository under [`config/locale/translations.csv`](https://github.com/Madek/madek-webapp/blob/master/config/locale/translations.csv).
+After editing it with an editor, it needs to be exported to `csv` again and checked into the repository.
 
 # Usage in source code
 
