@@ -310,6 +310,12 @@ Database note: implemented as STI + constraints, get the list with
 - **Concerns:**
     - [MetaData][] (as `value`)
 
+## [Section][]
+
+- Extension of `Keyword` (nullable 1:1 relation)
+- For keywords which belong to the `MetaKey` configured in `AppSetting.section_meta_key_id`
+- Have a color and a localized label which is shown in collection or media entry detail view 
+- Can be linked to a "index collection"
 
 ## [License][]
 
@@ -767,6 +773,7 @@ CREATE TABLE visualizations (
 [Public Resources]: #public-resources
 [Relations]: #relations
 [Responsibility]: #responsibility
+[Section]: #section
 [UsageTerm]: #usageterm
 [User]: #user
 [Vocabulary]: #vocabulary
