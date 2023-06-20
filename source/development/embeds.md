@@ -92,7 +92,7 @@ A complete walkthrough to
 
 oEmbed support is automatically tested in different parts of Madek:
 - [embedded view tests](https://github.com/Madek/madek-webapp/blob/master/spec/features/embed_player/embed_player_spec.rb): checks content, sizes and styling (also wrapped inside a WordPress layout) as well as Discovery links.
-- [oEmbed integration test](https://github.com/Madek/madek_integration-tests/blob/master/spec/features/oembed_spec.rb): ensures the API endpoint adheres to the oEmbed specification
+- [oEmbed integration test](https://github.com/Madek/madek-webapp/blob/master/spec/features/oembed_spec.rb): ensures the API endpoint adheres to the oEmbed specification
 
 ## Open Graph protocol
 
