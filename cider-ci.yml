@@ -35,3 +35,21 @@ jobs:
         for BRANCH in ts_master mk_master mfa_master bw_master mp_master; do
           curl -s -X POST -d "version_slug=${BRANCH}" http://readthedocs.org/build/madek
         done
+
+  merged-to-master:
+    name: "Merged to master"
+    priority: 999
+    depends_on:
+      master branch matches:
+        type: branch
+        include_match: ^master$
+    run_when:
+      master branch matches:
+        type: branch
+        include_match: ^master$
+    context:
+      tasks:
+        merged-to-master:
+          scripts:
+            test:
+              body: "exit 0"
