@@ -5,7 +5,10 @@ jobs:
     name: Build Docs
     description: Ensures docs can be built, attaches result for inspection
     run_when:
-      always: { type: branch, include_match: ".*" }
+      always:
+        type: branch
+        include_match: ".*"
+        exclude_match: '^.*(no-ci|hotspot).*$'
 
     context:
       task_defaults:
