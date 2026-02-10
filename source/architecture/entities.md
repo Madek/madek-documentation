@@ -388,8 +388,7 @@ CREATE TABLE license_groups (
 - there is 1 "system" Group called "Signed-in Users" which all users automatically
   join on login (usefor for giving [Permissions][] to "everyone but public"/)
 - additionally, there can be 1 for `AuthenticationGroup` for every external authentication method.
-  - for example, instances using the "ZHdK-AGW"
-    (via the `madek-zhdk-integration` plugin) will have 1 "ZHdK" AuthenticationGroup.
+  - for example, instances using the "ZHdK" authentication system will have 1 "ZHdK" AuthenticationGroup.
 - **Relations:**
     - has 1 or more [User][]s as *members*,
       always contains those that are using this particular authentication.
@@ -400,7 +399,6 @@ CREATE TABLE license_groups (
 - managed by the same external authentication integrations that have their own [AuthenticationGroup][],
   can be used by them to create InstitutionalGroups and manage their [Users][]s according
   to their internal logic
-  - for example, the `madek-zhdk-integration` plugin can sync `LDAP` groups
 
 - **Relations:**
     - has 1 or more [User][]s as *members*,
