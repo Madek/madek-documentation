@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1155 783" width="1155" height="783">
+<svg version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1155 783" width="1155" height="783">
   <defs>
     <filter id="Shadow" filterUnits="userSpaceOnUse" x="-115.5" y="-78.3">
       <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="1.308"/>
@@ -56,16 +56,6 @@
     </marker>
     <radialGradient id="Obj_Gradient_4" xl:href="#Gradient_2" gradientTransform="translate(149.02895 697) scale(42.351917)"/>
     <radialGradient id="Obj_Gradient_5" xl:href="#Gradient" gradientTransform="translate(332.12707 303.22206) rotate(45) scale(42.18261)"/>
-    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="DoubleArrow_Marker_3" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 18 8" markerWidth="18" markerHeight="8" color="#d6d6d6">
-      <g>
-        <path d="M 8 -3 L 8 0 L 0 -3 L 0 3 L 8 0 L 8 3 L 16 0 Z" fill="none" stroke="currentColor" stroke-width="1"/>
-      </g>
-    </marker>
-    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBall_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#d6d6d6">
-      <g>
-        <circle cx="-2.9999986" cy="0" r="2.99999734868332" fill="currentColor" stroke="currentColor" stroke-width="1"/>
-      </g>
-    </marker>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledDiamond_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-9 -4 10 8" markerWidth="10" markerHeight="8" color="black">
       <g>
         <path d="M -8 0 L -4 3 L 0 0 L -4 -3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
@@ -78,13 +68,23 @@
         <path d="M -18 0 L -6 0 M -9 -4 L -9 4 M -.87868 -2.12132 C .29289 -.949747 .29289 .949747 -.87868 2.12132 C -2.05025 3.29289 -3.94975 3.29289 -5.12132 2.12132 C -6.292893 .949747 -6.292893 -.949747 -5.12132 -2.12132 C -3.94975 -3.29289 -2.05025 -3.29289 -.87868 -2.12132" fill="none" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="DoubleArrow_Marker_3" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 18 8" markerWidth="18" markerHeight="8" color="#d6d6d6">
+      <g>
+        <path d="M 8 -3 L 8 0 L 0 -3 L 0 3 L 8 0 L 8 3 L 16 0 Z" fill="none" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledBall_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-7 -4 8 8" markerWidth="8" markerHeight="8" color="#d6d6d6">
+      <g>
+        <circle cx="-2.9999986" cy="0" r="2.99999734868332" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
     <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="NonNavigable_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -5 16 10" markerWidth="16" markerHeight="10" color="black">
       <g>
         <path d="M 14 0 L 0 0 M 8 4 L 0 -4 M 0 4 L 8 -4" fill="none" stroke="currentColor" stroke-width="1"/>
       </g>
     </marker>
   </defs>
-  <g id="Canvas_1" fill-opacity="1" stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none">
+  <g id="Canvas_1" stroke-dasharray="none" fill="none" fill-opacity="1" stroke-opacity="1" stroke="none">
     <title>Canvas 1</title>
     <rect fill="white" x="0" y="0" width="1155" height="783"/>
     <g id="Canvas_1_Layer_1">
@@ -275,16 +275,6 @@
       <g id="Line_831">
         <line x1="1022.5022" y1="588.7837" x2="756.89385" y2="598.1511" marker-end="url(#Arrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
-      <g id="Graphic_834">
-        <path d="M 774 680.4 L 779.4 675 L 867.6 675 L 873 680.4 L 873 696.6 L 867.6 702 L 779.4 702 L 774 696.6 Z" fill="#ebebeb"/>
-        <path d="M 774 680.4 L 779.4 675 L 867.6 675 L 873 680.4 L 873 696.6 L 867.6 702 L 779.4 702 L 774 696.6 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <clipPath id="clip_path_4">
-          <path d="M 0 5.4 L 5.4 0 L 93.6 0 L 99 5.4 L 99 21.6 L 93.6 27 L 5.4 27 L 0 21.6 Z" fill="#ebebeb"/>
-        </clipPath>
-        <text clip-path="url(#clip_path_4)" transform="translate(788.9 679)" fill="black">
-          <tspan font-family="Helvetica" font-size="16" fill="black" x="1.8500023" y="15" xml:space="preserve">Workflow</tspan>
-        </text>
-      </g>
       <g id="Line_835">
         <line x1="250.64963" y1="160.54127" x2="261.6555" y2="166.3679" marker-end="url(#Arrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
@@ -373,9 +363,6 @@
       <g id="Line_1125">
         <line x1="414.8525" y1="168.44718" x2="429.7282" y2="284.42354" marker-end="url(#FilledArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
-      <g id="Line_1019">
-        <path d="M 771.1897 674.5105 C 759.8375 670.6888 753.9222 666.4443 729 663.6761 C 699.9335 660.4475 643.6591 658.626 603 657 C 568.5351 655.6217 535.98265 655.10424 502.9146 654.3532" marker-end="url(#DoubleArrow_Marker_3)" marker-start="url(#FilledBall_Marker_2)" stroke="#d6d6d6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
       <g id="Line_913">
         <line x1="314.5361" y1="454.24627" x2="622.9409" y2="569.7232" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
@@ -415,10 +402,10 @@
         <g id="Graphic_955">
           <path d="M 401.03084 275.28146 L 411.59376 275.28146 L 484.6872 348.3749 L 484.6872 358.9378 L 468.84283 374.7822 L 458.2799 374.7822 L 385.18647 301.68875 L 385.18647 291.12583 Z" fill="url(#Obj_Gradient_6)"/>
           <path d="M 401.03084 275.28146 L 411.59376 275.28146 L 484.6872 348.3749 L 484.6872 358.9378 L 468.84283 374.7822 L 458.2799 374.7822 L 385.18647 301.68875 L 385.18647 291.12583 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-          <clipPath id="clip_path_5">
+          <clipPath id="clip_path_4">
             <path d="M 25.247986 -31.077593 L 35.810902 -31.077593 L 108.90435 42.01585 L 108.90435 52.57877 L 93.05997 68.42314 L 82.49706 68.42314 L 9.403613 -4.670304 L 9.403613 -15.23322 Z" fill="url(#Obj_Gradient_7)"/>
           </clipPath>
-          <text clip-path="url(#clip_path_5)" transform="translate(418.21347 281.90117) rotate(45)" fill="black">
+          <text clip-path="url(#clip_path_4)" transform="translate(418.21347 281.90117) rotate(45)" fill="black">
             <tspan font-family="Helvetica" font-size="14" fill="black" x="5.371525" y="14" xml:space="preserve">Group (STI)</tspan>
           </text>
         </g>
@@ -550,12 +537,6 @@
           <tspan font-family="Helvetica Neue" font-size="6" fill="black" x="4.295815" y="6" xml:space="preserve">responsible</tspan>
         </text>
       </g>
-      <g id="Graphic_1020">
-        <path d="M 593.8488 648.0643 L 653.7241 650.3748 L 653.0621 667.53006 L 593.1868 665.2195 Z" fill="white"/>
-        <text transform="translate(598.6523 653.2534) rotate(2.2098825)" fill="black">
-          <tspan font-family="Helvetica Neue" font-size="6" fill="black" x="9.512927" y="6" xml:space="preserve">responsible</tspan>
-        </text>
-      </g>
       <g id="Graphic_1022">
         <rect x="369.02557" y="135" width="90" height="27" fill="#d883ff"/>
         <rect x="369.02557" y="135" width="90" height="27" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -636,9 +617,6 @@
       </g>
       <g id="Line_1061">
         <line x1="1075.0903" y1="196" x2="1075.0903" y2="234.1" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-      </g>
-      <g id="Line_1064">
-        <line x1="721.8665" y1="622.5463" x2="800.5902" y2="669.89725" marker-end="url(#Arrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_1079">
         <rect x="549" y="342" width="90" height="27" fill="#73feff"/>
