@@ -131,7 +131,7 @@ Resources themselves correspond to
     - `height`, `width`, `content_type`, `media_type`:
        same meaning as in [MediaFile][], but pertains to the converted file
     - <mark>`thumbnail`: String, one of the "configured sizes" for Previews,
-      one of `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`
+      one of `grand`, `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`
       (*Note: found with* `SELECT DISTINCT thumbnail FROM previews`)
 - **Relations:**
     - belongs to exactly 1 [MediaFile][]

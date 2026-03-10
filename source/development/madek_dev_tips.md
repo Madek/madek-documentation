@@ -16,15 +16,19 @@ $.ajax({ success: fn, error: fn });
 
 We currently have the following image sizes (aka thumbnails):
 
-| Name        | Size  (longest Side) |
-|-------------|----------------------|
-| `small`     | 100                  |
-| `small_125` | 125                  |
-| `medium`    | 300                  |
-| `large`     | 500                  |
-| `x_large`   | 768                  |
-| `maximum`   | (original)           |
+| Name            | Size  (bounding rectangle) |
+|-----------------|----------------------------|
+| `small` (*)     | 100 x 100                  |
+| `small_125` (*) | 125 x 125                  |
+| `medium`        | 300 x 300                  |
+| `large`         | 620 x 620                  |
+| `x_large`       | 1024 x 1024                |
+| `grand` (**)    | 1280 x 1280                |
+| `maximum`       | (original size)            |
 
+(*) `small` and `small_125` are no longer generated starting with release 4.14.
+
+(**) `grand` was introduced with release 4.14.
 
 # Routes
 
