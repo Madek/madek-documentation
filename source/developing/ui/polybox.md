@@ -9,7 +9,9 @@ see [Styleguide](http://medienarchiv.zhdk.ch/styleguide?section=08+Combos#8.9.1)
 ## DynamicFilters
 
 Madek implements a list of **Filters**, notably by (configured) [MetaData][].  
-All possible cases are [documented](./Filters/) as examples in `JSON` format.
+All possible cases are documented as JSON examples on the
+[architecture resource filters](../../architecture/resource_filters.md) page
+(and exercised by DynamicFilters / SideFilter in the webapp).
 
 ### Presenter
 
@@ -66,19 +68,9 @@ builds a tree-like view from the DynamicFilters Presenter ("accordion nav").
 Initially every section tree is "closed", because "unfolding" every possible filter
 at once would take a very long time (`SQL` query).
 
-<!--  WIP
 ## Interaction
 
-When the user selection, it is opened.  
-Contents are fetched async if needed.
-Same applies to any children (like Keywords)
-
-Selecting a leaf of the tree add this value as a filter
-and reloads the resource list.
-
-If at least one value is selected for a key,
-
-If a filter key is marked `multi: true`, more than one value can be
-added at the same time. It is also to select the key itself (checkbox)
-to filter for "any value".
--->
+Selecting a filter updates the list URL/config and reloads resources (see
+[UI React](react.md) — URL + JSON fetch). Facet children may load asynchronously
+when a section is opened. Multi-value keys and “any value” behaviour follow the
+filter JSON contract on the architecture page.

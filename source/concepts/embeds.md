@@ -11,7 +11,13 @@ Official specification: <http://oembed.com>
 
 - Supported Entities: `MediaEntry`
 - Supported (Madek) Media Types: `image`, `audio`, `video`
-- Configuration: none
+  (`Madek::Constants::Webapp::EMBED_SUPPORTED_MEDIA`)
+- oEmbed response `type`: `video` for video; `rich` for image and audio
+  (`EMBED_MEDIA_TYPES_MAP`)
+- Endpoint: `GET /oembed` (`OembedController`)
+- Configuration: none beyond deploy/instance URL
+- Private entries may be embedded with a valid confidential-link /
+  access token when the controller accepts one
 
 ### Walkthrough
 
@@ -99,7 +105,7 @@ oEmbed support is automatically tested in different parts of Madek:
 Official specification: <http://ogp.me>
 
 - Supported Entities: `MediaEntry`
-- Configuration: can be disabled in deploy config (enbaled by default)
+- Configuration: can be disabled in deploy config (enabled by default)
 
 Adds the following metadata to the `<head>` of resource pages:
 - the canonical URL (UUID-based)

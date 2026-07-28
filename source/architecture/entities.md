@@ -38,6 +38,8 @@ Resources themselves correspond to
 
 ## [MediaEntry][]
 
+Webapp UI label: **MediaEntry** (same as the domain name).
+
 ```figure
 ┏━━━━━━━━━━━━━━┓       ┏━━━━━━━━━━━━━━┓
 ┃              ┃       ┃              ┃
@@ -61,11 +63,14 @@ Resources themselves correspond to
     - [Previewable][]
     - [Favoritable][]
     - [CustomURL][]
-- **Views:** `index`, `show` (with tabs), `new` ("Upload-Form"), `edit_meta_data`
-- **Actions:** `update_cover` ("Upload"), `publish`, `destroy` (deletion)
+- **Views:** `index`, `show` (with tabs), `new` ("Upload"), meta-data edit routes
+- **Actions:** `create` / upload, `publish`, `destroy`; cover updates via collection arcs
 
 
 ## [Collection][]
+
+Webapp UI label: **Set**. Code, API, and tables remain `Collection` /
+`collections` (e.g. `featured_set_id` still points at a Collection).
 
 ```figure
 ┏━━━━━━━━━━━━━━┓       ┏━━━━━━━━━━━━━━┓
@@ -81,8 +86,13 @@ Resources themselves correspond to
     - has 0 or more Resources *as* `child_media_resources`
       ("The Resources are *in* the Collection")
         - type of Resources has to be [MediaEntry][] or [Collection][]
-        - 0 or 1 [MediaEntry][] *as* `cover`
+        - implemented via arc tables:
+          `collection_media_entry_arcs` (entry↔set; `cover`, `highlight`,
+          `order`/`position`) and `collection_collection_arcs` (parent/child
+          sets; `highlight`, order)
+        - 0 or 1 [MediaEntry][] *as* `cover` (arc flag)
         - 0 or more Resources *as* `highlight`
+    - may belong to a [Workflow][] (`collections.workflow_id` / master set)
 - **Concerns:**
     - [Responsibility][]
     - [MetaData][] (*as* `subject`)
@@ -90,8 +100,9 @@ Resources themselves correspond to
     - [Previewable][]
     - [Favoritable][]
     - [CustomURL][]
-- **Views:** `index`, `show`, `new`, <mark>`edit_meta_data`</mark>
-- **Actions:** `create` ("Upload"), `publish`, `meta_data_update`, `destroy` (deletion)
+- **Views:** `index`, `show`, `new`, meta-data edit by context / by vocabularies
+  (`edit_meta_data_by_context`, `edit_meta_data_by_vocabularies`, plus batch variants)
+- **Actions:** `create`, meta-data update, destroy (and relation edits)
 
 
 ## [MediaFile][]
@@ -115,8 +126,10 @@ Resources themselves correspond to
     - `height`, `width`: Dimensions in pixels (for images and videos)
     - `size`: the file size in bytes
     - `meta_data`: file meta data (EXIF, IPTC, etc), **NOT** [MetaData][]!
-    - `access_hash`: String, <mark>???</mark>
-    - `guid`: String, <mark>???</mark>
+    - `guid`: String, content-addressing id used in on-disk paths under the
+      file/thumbnail storage dirs (`guid.first` / `guid`)
+    - *(removed)* `access_hash` — former Zencoder access helper; replaced by
+      access tokens (`migrate/046_zencoder_access_tokens.rb`)
 - **Relations:**
     - has exactly 1 [User][] *as* `uploader`
     - has exactly 1 [MediaEntry][]
@@ -130,9 +143,10 @@ Resources themselves correspond to
     - `filename`: String, internal filename (after conversion)
     - `height`, `width`, `content_type`, `media_type`:
        same meaning as in [MediaFile][], but pertains to the converted file
-    - <mark>`thumbnail`: String, one of the "configured sizes" for Previews,
-      one of `grand`, `large`, `maximum`, `medium`, `small`, `small_125`, `x_large`
-      (*Note: found with* `SELECT DISTINCT thumbnail FROM previews`)
+    - `thumbnail`: String, configured preview size label (`grand`, `large`,
+      `maximum`, `medium`, `small`, `small_125`, `x_large`, …). See
+      [Media types — sizes](../concepts/media-types.md#image--thumbnail-sizes).
+      (`SELECT DISTINCT thumbnail FROM previews`)
 - **Relations:**
     - belongs to exactly 1 [MediaFile][]
 
@@ -274,14 +288,22 @@ Resources themselves correspond to
 
 These are the valid `type`s for a [MetaDatum][].
 
+Current live `meta_data.type` values (CHECK constraint):
+
 - `MetaDatum::Text`: literal value (String)
 - `MetaDatum::TextDate`: literal value (Date as String)
 - `MetaDatum::Keywords`: [Keyword][]
 - `MetaDatum::People`: [Person][]
-- `MetaDatum::Licenses`: [License][]
-- <mark>`MetaDatum::Groups`: [Group][]</mark>
+- `MetaDatum::Roles`: roles join
+- `MetaDatum::JSON`: JSON payload
+- `MetaDatum::MediaEntry`: reference to another entry
 
-Database note: implemented as STI + constraints, get the list with
+Historical / legacy types (may still appear in old migrations or MetaKey
+object-type enums, but not in the current `meta_data` type CHECK):
+`MetaDatum::Groups`, `MetaDatum::Licenses`, `MetaDatum::Users`,
+`MetaDatum::Vocables`.
+
+Database note: STI + constraints; confirm with
 `SELECT DISTINCT type FROM meta_data`
 
 
@@ -317,30 +339,46 @@ Database note: implemented as STI + constraints, get the list with
 - Have a color and a localized label which is shown in collection or media entry detail view 
 - Can be linked to a "index collection"
 
-## [License][]
+## [Delegation][]
 
-```
-CREATE TABLE licenses (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    is_default boolean DEFAULT false,
-    is_custom boolean DEFAULT false,
-    label character varying,
-    usage character varying,
-    url character varying,
-    "position" double precision
-);
+Named responsibility subject (not a login user). Members are Users and/or
+Groups; optional supervisors; optional link to [Workflow][]s.
 
-CREATE TABLE license_groups (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    name text NOT NULL,
-    description text,
-    "position" double precision,
-    parent_id uuid,
-    created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
-);
-```
+- **Attributes:** `name`, `description`, `admin_comment`, `notifications_email`,
+  `notify_all_members`, `beta_tester_notifications`
+- **Relations:** HABTM users, groups, supervisors; HABTM workflows; has many
+  MediaEntries/Collections via `responsible_delegation_id`
+- Managed in `/admin` (`resources :delegations`)
+- See [Responsibility][] and transfer-responsibility
+  [Notifications](../concepts/notifications.md)
 
+## [ConfidentialLink][]
+
+Time-limited, revocable token granting access to a polymorphic resource
+(typically a MediaEntry) without a full user session.
+
+- **Attributes:** `token`, `revoked`, `expires_at`, `description`
+- **Relations:** belongs to creating [User][]; belongs to `resource`
+  (polymorphic)
+- Used for private embeds / share links (see also [Embeds](../concepts/embeds.md))
+
+## [Workflow][]
+
+Collaborative / structured upload workspace: common permissions and mandatory
+meta-data configuration (`configuration` JSON), owners, optional Delegations,
+and associated Collections (including a master collection, `is_master`).
+
+- **Attributes:** `name`, `is_active`, `configuration`
+- **Relations:** creator User; HABTM owners; HABTM delegations; has many
+  Collections
+- `finish` locks the workflow (`WorkflowLocker`)
+
+## [License][] (historical)
+
+Standalone `licenses` / `license_groups` tables and `MetaDatum::Licenses` are
+**not** in the current live `meta_data` type CHECK. Default license *settings*
+may still exist on AppSetting (`media_entry_default_license_*`). Prefer Keywords
+/ text meta for rights statements unless an instance still carries legacy data.
 
 ---
 
@@ -357,11 +395,11 @@ CREATE TABLE license_groups (
 - **Attributes:**
     - `login`: String (alphanumeric characters, and `.`, `-`, `_` allowed)
     - `email`: String
-    - `password`: String (saved as digest)
-    - `usage_terms_accepted_at`: Date, see [UsageTerm][]s.
-    - <mark>`zhdkid`: Number, …</mark>
-    - `notes`: String, ???
-    - `autocomplete`: String, ???
+    - `institutional_id` + `institution`: external/institutional identity
+      (replaces older `zhdkid`-style fields)
+    - `accepted_usage_terms_id`: FK to accepted [UsageTerm][] (see UsageTerm)
+    - `password_sign_in_enabled`: whether local password login is allowed
+    - `notes`, `autocomplete`, `searchable`, `settings`: supporting fields
 - **Relations:**
     - has exactly 1 [Person][]
 - **Concerns:**
@@ -380,7 +418,8 @@ CREATE TABLE license_groups (
     - has 1 or more [User][]s as *members*
 - **Concerns:**
     - [Permissions][] (as `subject`)
-    - <mark>[MetaData][] (as `value`)</mark>
+    - Historically could appear as MetaDatum value type `MetaDatum::Groups`
+      (no longer a live `meta_data.type`)
 
 ## [AuthenticationGroup][]
 
@@ -489,43 +528,21 @@ CREATE TABLE app_settings (
 
 ## [ZencoderJob][]
 
-<pre><mark>
-CREATE TABLE zencoder_jobs (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    media_file_id uuid NOT NULL,
-    zencoder_id integer,
-    comment text,
-    state character varying DEFAULT 'initialized'::character varying NOT NULL,
-    error text,
-    notification text,
-    request text,
-    response text,
-    created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
-);
-</mark></pre>
+External audio/video encoding job tied to a [MediaFile][].
+
+- **Attributes (typical):** `zencoder_id`, `state` (default `initialized`),
+  `error`, `notification`, `request`, `response`, `comment`
+- **Relations:** belongs to exactly 1 [MediaFile][]
 
 ## [UsageTerm][]
 
-<mark>
-- each instance has 0 or more U.
-- the most recently created U. is considered as the "latest Version"
-- application enforces acceptance of "latest Version"
-    - when [User][] logs into the `webapp`, a modal dialog is shown
-    - on acceptance, [User][].`usage_terms_accepted_at` is updated
-</mark>
+Terms of use presented to users.
 
-<pre><mark>
-CREATE TABLE usage_terms (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    title character varying,
-    version character varying,
-    intro text,
-    body text,
-    created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL
-);
-</mark></pre>
+- Each instance has 0 or more usage-term versions (`title`, `version`, `intro`,
+  `body`)
+- The most recently created row is treated as the latest version
+- Webapp enforces acceptance of the latest version on login (modal); acceptance
+  is recorded via [User][] `accepted_usage_terms_id`
 
 
 
@@ -555,11 +572,13 @@ pertaining to several different Resources is summarized as a *Concern*.
 
 - **Relations:**
     - has exactly 1 [User][] *as* `creator`
-    - has exactly 1 [User][] *as* `responsible`
-- for [MediaEntry][], [Collection][], there is always exactly 1 **owner**
-    - => **`responsible_user`**: [User][]
+    - responsible party is either a [User][] (`responsible_user_id`) **or** a
+      [Delegation][] (`responsible_delegation_id`) — mutually exclusive on
+      MediaEntry / Collection
 - has super-permission **"Delete and Change owner"** (Löschen und Verantwortlichkeit übertragen)
 - **implicitly has all the granular permissions** listed below (if applicable)
+- Transfer of responsibility can enqueue notifications (see
+  [Notifications](../concepts/notifications.md))
 
 
 ## [Favoritable][]
@@ -576,17 +595,20 @@ Every [MediaEntry][] is "previewable" (in the UI) as an image.
 The image can come from several sources:
 
 - either by a compiled preview from the associated [MediaFile][]
-    - images are compiled locally using `imagemagick`
-    - videos are processed with [zencoder](https://zencoder.com/), a framegrab is used as image
-    - <mark>sounds can be "converted" to waveform image, ala soundcloud (AsAService: [auphonic](https://auphonic.com))
+    - images/PDF are compiled locally using ImageMagick
+    - videos (and audio encodings) are processed with
+      [zencoder](https://zencoder.com/); video framegrabs are used as image
+      previews. There is no separate auphonic/waveform pipeline in-tree today.
 - or a generic image, possibly representing the mime-type of the [MediaFile][]
 
 A presenter like `Presenter::ResourceThumbnail` makes the decision which image is used.
 The `MediaEntryController#preview` action is **only** tasked with serving the
-specific compiled Previews (the generic thumbnail is )
+specific compiled Previews (the generic thumbnail is separate).
 
-<mark>TODO: sizes! (not Previews are not just used for thumbs; how to handle small
-  originals)</mark>
+Preview **size labels** and when they are generated: see
+[Media types — sizes](../concepts/media-types.md#image--thumbnail-sizes).
+Previews are not only UI thumbs — they also back embeds, oEmbed, and download
+variants where configured.
 
 ### [Preview of Sets][]
 
@@ -611,8 +633,8 @@ specific compiled Previews (the generic thumbnail is )
 Permissions are a kind of ACL (Access-Controll-List)
 on a specific **Resource**.
 A Permission allows an **`action`** for a **`subject`**.
-The `subject` can be of type [User][], [Group][] or [ApiClient][],
-as well as *"Public"*.
+The `subject` can be of type [User][] (or Delegation on user-permission rows),
+[Group][] or [ApiClient][], as well as *"Public"*.
 
 - For a single Permission:
     - **Attributes:**
@@ -691,43 +713,28 @@ How to edit these docs and keep them up to date:
     - "0 or more"
     - "1 or more" (`NOT NULL`)
 
-### TODO (DB)
-    - weg: contexts: **context_group_id uuid**
+### Supporting tables (brief)
 
-### TODO (Docs)
+- **`edit_sessions`** — records that a [User][] edited a [MediaEntry][] or
+  [Collection][] (exactly one of `media_entry_id` / `collection_id`); triggers
+  propagate timestamps onto the resource.
+- **`full_texts`** — search document (`text`) keyed by `media_resource_id`;
+  GIN/trgm indexes support filtering.
+- **`visualizations`** — per-user layout/control settings for a resource
+  identifier (UI state, not core domain metadata).
+- **Notifications / email** — `notifications`, `notification_cases`, `emails`,
+  `smtp_settings`: see [Notifications](../concepts/notifications.md) (not
+  duplicated here).
+- **`audited_*`** — request/response/change audit tables; ops/compliance, not
+  product entities.
 
-These docs are ***complete*** *([according to `structure.sql`](https://github.com/Madek/madek-datalayer/blob/master/db/structure.sql))*,
-meaning everything present in the DB schema is also *mentioned* here.
+`contexts.context_group_id` has been removed from the current schema.
 
-Almost everything is also *explained* and put into a consistent structure
-(or mentioned as an apparent error).
-everything else is pasted below (either not important or still open questions).
-
-```
-CREATE TABLE edit_sessions (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    user_id uuid NOT NULL,
-    created_at timestamp without time zone DEFAULT now() NOT NULL,
-    updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    media_entry_id uuid,
-    collection_id uuid,
-    CONSTRAINT edit_sessions_is_related CHECK ((((((media_entry_id IS NULL) AND (collection_id IS NULL))) OR (((media_entry_id IS NULL) AND (collection_id IS NOT NULL)))) OR (((media_entry_id IS NOT NULL) AND (collection_id IS NULL)))))
-);
-
-CREATE TABLE full_texts (
-    media_resource_id uuid NOT NULL,
-    text text
-);
-
-
-CREATE TABLE visualizations (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
-    user_id uuid NOT NULL,
-    resource_identifier character varying NOT NULL,
-    control_settings text,
-    layout text
-);
-```
+This page is a **curated** model narrative, not a 1:1 dump of every
+`CREATE TABLE` in
+[`structure.sql`](https://github.com/Madek/madek-datalayer/blob/master/db/structure.sql).
+The ER diagram under `database/` may lag the live schema — prefer
+`structure.sql` + this page.
 
 
 
@@ -739,10 +746,12 @@ CREATE TABLE visualizations (
 [AuthenticationGroup]: #authenticationgroup
 [Collection]: #collection
 [Concerns]: #concerns
+[ConfidentialLink]: #confidentiallink
 [Context]: #context
 [ContextKey]: #contextkey
 [Copyright]: #copyright
 [CustomURL]: #customurl
+[Delegation]: #delegation
 [Entrusted Resource]: #entrusted-resources
 [Favoritable]: #favoritable
 [Group]: #group
@@ -775,9 +784,10 @@ CREATE TABLE visualizations (
 [UsageTerm]: #usageterm
 [User]: #user
 [Vocabulary]: #vocabulary
+[Workflow]: #workflow
 [ZencoderJob]: #zencoderjob
 <!-- external -->
-[Decorator]: ../development/ui-framework/#decorators
-[ResourceFilter]: ../architecture/resource_filters/
-[Presenter]: ../development/ui-framework/#presenters
+[Decorator]: ../developing/ui/framework.md#decorators
+[ResourceFilter]: ./resource_filters.md
+[Presenter]: ../developing/ui/framework.md#presenters
 [madek_core_vocab_spec]: https://github.com/Madek/madek-datalayer/blob/master/db/migrate/165_migrate_core_keys.rb

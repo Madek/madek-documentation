@@ -24,18 +24,23 @@ This method defines its own `SQL` generation logic and behaves as any other `Act
     { "not_key": "media_object:patron" }
   ],
   "media_files": [
-    { "key": "media_type", "value": "image/jpeg" },
-    { "key": "extension", "value": "jpg" }
+    { "key": "media_type", "value": "image" },
+    { "key": "extension", "value": "jpg" },
+    { "key": "content_type", "value": "image/jpeg" }
   ],
   "permissions": [
     { "key": "public",
-      "value": true },
+      "value": "true" },
     { "key": "responsible_user",
       "value": "8631ffff-f601-451e-bce7-f3696d18addf" },
+    { "key": "responsible_delegation",
+      "value": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" },
     { "key": "entrusted_to_user",
       "value": "f3d3174c-11b2-43e3-80dc-5925665c5a37" },
     { "key": "entrusted_to_group",
-      "value": "30a6baf1-010f-444a-87f0-dc78be983014" }
+      "value": "30a6baf1-010f-444a-87f0-dc78be983014" },
+    { "key": "entrusted_to_api_client",
+      "value": "11111111-2222-3333-4444-555555555555" }
   ]
 }
 ```
@@ -94,16 +99,18 @@ String matching via `match` is case-insensitive.
 ```json
 {
   "media_files": [
-    { "key": "media_type", "value": "image/jpeg" },
-    { "key": "extension", "value": "any" }
+    { "key": "media_type", "value": "image" },
+    { "key": "extension", "value": "jpg" }
   ]
 }
 ```
 
 There are 2 usage options:
 
-1. use an arbitrary string via `value` for a specific media_file attribute `key`. The value is matched *exactly*. The media file attributes basically correspond to the columns of the `media_files` table in DB.
-2. use `any` as value of `value` to match anything inside a column.
+1. use an arbitrary string via `value` for a specific media_file column `key`
+   (`media_type`, `extension`, `content_type`, …). Exact match on the column
+   (except `filename`, which uses `ILIKE`).
+2. use `any` as value of `value` to match anything inside a column where supported.
 
 All the filter options inside `media_files` are combined using the logical `AND`.
 
@@ -113,23 +120,29 @@ All the filter options inside `media_files` are combined using the logical `AND`
 {
   "permissions": [
     { "key": "public",
-      "value": true },
+      "value": "true" },
     { "key": "responsible_user",
       "value": "8631ffff-f601-451e-bce7-f3696d18addf" },
+    { "key": "responsible_delegation",
+      "value": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee" },
     { "key": "entrusted_to_user",
       "value": "f3d3174c-11b2-43e3-80dc-5925665c5a37" },
     { "key": "entrusted_to_group",
-      "value": "30a6baf1-010f-444a-87f0-dc78be983014" }
+      "value": "30a6baf1-010f-444a-87f0-dc78be983014" },
+    { "key": "entrusted_to_api_client",
+      "value": "11111111-2222-3333-4444-555555555555" },
+    { "key": "visibility",
+      "value": "public" }
   ]
 }
 ```
 
-There are 4 usage options:
+Recognized `key` values (`filter_by_permission_helper`):
 
-1. use an `uuid` as `value` for `key` = `responsible_user`
-2. use an `uuid` as `value` for `key` = `entrusted_to_user`
-3. use an `uuid` as `value` for `key` = `entrusted_to_group`
-4. use `true`/`false` as `value` for `key` = `public`
+1. `responsible_user` / `responsible_delegation` — UUID
+2. `entrusted_to_user` / `entrusted_to_group` / `entrusted_to_api_client` — UUID
+3. `public` — string `"true"` / `"false"`
+4. `visibility` — one of `public`, `user_or_group`, `api`, `private` (side-filter / UI)
 
 All the filter options inside `permissions` are combined using the logical `AND`.
 
@@ -176,9 +189,12 @@ Dynamic because:
 
 For [Permissions][]:
 
-- `responsible_user`
-- `get_meta_data_and_previews` Permissions for [Users][] (multiple),
-  [Groups][] (multiple), and [Public][Permissions] (true/false).
+- `responsible_user` / `responsible_delegation`
+- entrusted facets (`entrusted_to_user` / `group` / `api_client`)
+- public / visibility helpers
+
+(UI labels may still say “get metadata and previews”; filter keys follow
+`filter_by` above.)
 
 For MetaData, they are MetaKeys that are used on MetaData in *scope*,
 grouped by Vocabularies.

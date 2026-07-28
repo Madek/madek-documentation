@@ -39,12 +39,15 @@ string = t(:the_key_name)
 string = I18n.t(:the_key_name) # when the short helper is not available
 ```
 
-## JavaScript/CoffeeScript:
+## JavaScript:
 
 ```js
-t = require('app/assets/javascripts/lib/string-translation.coffee')('de')
-string = t('the_key_name')
+const t = require('../../lib/i18n-translate.js') // or import I18nTranslate from '...'
+const string = t('the_key_name')
 ```
+
+(Bundled from `config/locale/translations.csv` via `parse-translations-from-csv.js` /
+`i18n-translate.js`.)
 
 # Rules for developers
 

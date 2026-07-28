@@ -1,7 +1,4 @@
-[WIP]
-
-
-# ⚠️
+# UI framework (presenters / decorators)
 
 Note: This document is potentially confusing because it tries to explain our approach
 to more than one domain simultaneously:

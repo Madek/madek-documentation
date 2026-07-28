@@ -4,6 +4,47 @@ site_dir: build
 markdown_extensions: [tables, fenced_code, footnotes]
 theme: readthedocs
 extra_css: ['style.css']
+# Living chapter trackers — not part of the published docs
+exclude_docs: |
+  **/todo.md
 
-#  tmp: does not work but should:
-# markdown_extensions: [tables, fenced_code, wikilinks(base_url='/wiki/', end_url='.html')]
+nav:
+  - Start here:
+      - Overview: index.md
+      - Madek at a glance: start/madek-at-a-glance.md
+  - Concepts & system:
+      - Media types: concepts/media-types.md
+      - Embeds: concepts/embeds.md
+      - Permissions: concepts/permissions.md
+      - Feature groups: concepts/feature-groups.md
+      - Uberadmin: concepts/uberadmin.md
+      - Notifications: concepts/notifications.md
+      - Resource filters: concepts/resource-filters.md
+  - Developing Madek:
+      - Local setup: developing/setup.md
+      - Testing: developing/testing.md
+      - Developer rules: developing/developer-rules.md
+      - Admin interface: developing/admin-interface.md
+      - Frontend: developing/frontend.md
+      - UI framework: developing/ui/framework.md
+      - UI React: developing/ui/react.md
+      - UI Polybox: developing/ui/polybox.md
+      - Error handling: developing/error-handling.md
+      - Translation: developing/translation.md
+      - Copyright (system model): developing/copyright.md
+  - API:
+      - Overview: api/index.md
+      - Authentication: api/auth.md
+      - Consumers: api/consumers.md
+      - API vs API-v2: api/api-vs-api-v2.md
+  - Architecture:
+      - Overview: architecture/index.md
+      - Entities: architecture/entities.md
+      - Meta data config: architecture/meta_data_config.md
+      - Resource filters: architecture/resource_filters.md
+  - Project:
+      - Branches: project/branches.md
+      - Git reflow: project/git-reflow.md
+      - Submit and review: project/submit-and-review.md
+      - External contributors: project/external-contributors.md
+      - Ops: project/ops.md

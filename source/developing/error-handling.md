@@ -19,19 +19,16 @@ Rails does not provide exceptions for every error the *application* might raise.
 For example, since there is no built-in authentication/access handling,
 there is also no component implementing `UnauthorizedError` or `ForbiddenError`.
 
-We can add them ourselves:
+We can add them ourselves under `Errors::` (see `webapp/app/lib/errors.rb`),
+e.g. `Errors::ForbiddenError`, and register HTTP status mapping via
+`Errors.rescue_responses` merged into ActionDispatch.
 
 ```ruby
-class ForbiddenError < StandardError
+module Errors
+  class ForbiddenError < StandardError
+  end
 end
-# etc…
-```
-
-We also need to tell `ActionDispatch` how this exception maps to a HTTP status.
-This is done by adding the following to `config.action_dispatch.rescue_responses`:
-
-```ruby
-  { 'ForbiddenError' => 403 }
+# Errors.rescue_responses includes 'Errors::ForbiddenError' => :forbidden
 ```
 
 
@@ -42,7 +39,7 @@ This is done by adding the following to `config.action_dispatch.rescue_responses
 The most simple way to handle an exception in a controller is to `rescue_from` it:
 
 ```ruby
-rescue_from ForbiddenError do
+rescue_from Errors::ForbiddenError do
   render plain: 'YOU SHALL NOT PASS!', status: 403
 end
 ```

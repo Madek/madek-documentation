@@ -2,6 +2,10 @@
 signed and implemented the [1886 Berne Convention on copyright](https://en.wikipedia.org/wiki/Berne_Convention)*
 *This is **not** about trade- and other marks nor about patents.*
 
+This page documents the **system model** for copyright-related fields and
+logic in Madek. Legal policy and end-user guidance belong in
+[User documentation](https://doku.madek.ch/) / institution-specific docs.
+
 Every "Creative Work" (encoded by a [MediaFile][])
 can have one or more authors in a legal sense
 
@@ -92,19 +96,19 @@ The ZHdK bylaws state about these rights
     - a department *could* also put all students works under CC-BY-NC-SA
 
 
-TL;DR:
-There is no Model "Copyright", but a 'copyrighted' attribute on MediaFiles.
-A Model "License" would be enough to represent all the ways to transfer rights.
+## System model in Madek (current)
 
-For the user, the UI could stay roughly the same but allow more options.
-There can be some specific hints if we know about the context from Metadata
-about the File or the User (e.g. Link to the official University explanation
-about the above situation when the User is a student or employee).
+There is **no** first-class `Copyright` / `License` ActiveRecord model in live
+datalayer for MetaDatum (legacy License tables removed from the meta_data type
+CHECK). Rights are expressed mainly as:
 
-The current schema could be migrated from the MetaData, but would require
-manual intervention because right now the field 'Copyright' is just a string,
-and has no consistent usage.
-It is mostly used like `if (copyrighted==true) then creator.name else 'Public Domain'`,
-but for the ZHdK-Works mentioned above it is often:
-`if (license.where(source: 'special-zhdk-rules') then 'ZHdK' else creator.name`.
-(Option: leave the old field, but don't allow it to be used for new entries (deprecation))
+- MetaData (e.g. `madek_core:copyright_notice` and related keys)
+- AppSetting defaults/templates: `copyright_notice_templates`,
+  `copyright_notice_default_text`, `media_entry_default_license_*`
+
+Legal/policy text above is background for implementers; end-user guidance stays
+in [User documentation](https://doku.madek.ch/).
+
+[MediaFile]: ../architecture/entities.md#mediafile
+[AppSetting]: ../architecture/entities.md#appsetting
+[MetaData]: ../architecture/entities.md#metadata

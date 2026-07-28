@@ -1,7 +1,7 @@
 # REST-full, isomorphic, progressively enhanced UI with Presenters and React
 
-Example:
-Decorator `MediaResourcesBox` aka *PolyBox* (when `props.interactive: true`)
+Primary example: decorator `MediaResourcesBox` (interactive “PolyBox”) under
+`webapp/app/javascript/react/decorators/`. Bundling: [Frontend](../frontend.md).
 
 ## High-Level-Overview
 
@@ -64,21 +64,20 @@ component is re-rendered whenever either:
 - Link is disabled in browser, but pushed into browser `history`!
 - (The new config is then applied because the component listens to `history`)
 
-#### **TODO:** Changes that alter selected resources (and the URL):
+#### Changes that alter selected resources (and the URL):
 
-- in short: fetch the URL as JSON and merge onto `this.state`
-- in practice, handle 'loading' state in UI, etc.
+- Push the new URL into `history`, then load list data as JSON for that path
+  (`json_path` / Accept JSON on the same ROCA route) and merge into box state
+  (`nextState` in `MediaResourcesBox` / `mediaResourcesBoxState`)
+- Show loading UI while pages or filter results arrive (`loadingNextPage`, etc.)
+- Selection may be cleared or recalculated when the resource set changes
 
-#### **TODO:** Changes that alter one or more *selected resources*:
+#### Changes that alter one or more *selected resources*:
 
-- every collection of resources from a Presenter can also be instantiated
-  as a (backbone-like) model
-
-```coffee
-entries = (new MediaEntry(@props.get.resources))
-entry = resources.first()
-entry.meta_data.find(meta_key: id: 'madek_core:title') = 'hello world'
-entry.save (err, res)-> console.log(err or res)
-```
-
-- TODO: link to/show in modal: (batch) edit form
+- Selection lives in box state (`selectedResources`); actions (clipboard, batch
+  destroy, …) POST/PATCH via `app-request` with the selected ids
+- Batch edit and similar flows open dedicated modals/routes rather than
+  mutating presenter JSON in place
+- Prefer the current React decorators under
+  `webapp/app/javascript/react/decorators/` over obsolete Backbone-style client
+  models

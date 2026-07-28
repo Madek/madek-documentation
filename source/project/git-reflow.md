@@ -1,14 +1,42 @@
 # Git Workflow
 
-Work in Progress.  
-
 NOTE: A very similar process is
 [Gitlab Flow](http://doc.gitlab.com/ee/workflow/gitlab_flow.html).
 
 This guide focuses on the concrete steps/commands a developer has to do,
 and breaking it down into small concrete steps.
 
-<mark>TODO: init, release flow</mark>
+## Init (umbrella + submodules)
+
+Clone the [Madek umbrella](https://github.com/Madek/Madek) and initialize
+submodules:
+
+```bash
+git clone git@github.com:Madek/Madek.git
+cd Madek
+git submodule update --init --recursive
+```
+
+After pulling umbrella commits that move submodule SHAs:
+
+```bash
+git submodule update --init --recursive
+```
+
+Consistency helpers in the umbrella:
+
+- `bin/git-check-submodule-consistency` — verify nested datalayer SHAs align
+- `bin/git-update-and-commit-datalayer-submodules` — bump nested datalayers
+- `dev/git-submodule-changes-message` — summarize submodule moves for a commit
+
+## Release / tagging (pointer)
+
+Release notes live under umbrella `config/releases/`. Tagging submodules for a
+Madek release is driven by `dev/git-tag-submodules <TAG>` (checks out the tag,
+updates submodules, signs/pushes `Madek-<TAG>` tags on each submodule).
+
+Day-to-day merge gates: [Submit and review](submit-and-review.md) and umbrella
+`cider-ci.yml` (`all-tests`, `good-to-merge`).
 
 
 ## Config
@@ -27,14 +55,17 @@ This Guide uses Shell Variables to make the examples more readable and runnable 
 ```bash
 nn='nn'         # your initials
 origin='origin' # name of git remote
-next='next'     # name of targeted "next" branch
+# Integration target: usually master. Historical docs used `next` as the
+# collect branch name — keep using a $next-style *personal/feature* prefix if
+# that is still team convention, but confirm remotes (see branches.md).
+next='master'
 ```
 
 ## Branches
 
 ### Integration Branches
 
-- `master`
+- `master` — primary long-lived branch (production / protection)
 
 They must only be merged fast-forward and should never be force-pushed.
 

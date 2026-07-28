@@ -30,9 +30,9 @@ are marked as "belonging to a specific institutional unit".
    set both to `require: true`
 1. Configure [AppSetting][]:
     - `context_for_entry_summary` to `summary`
-    - `context_for_collections_summary` to `summary`
-    - `contexts_for_resource_edit` to `summary`
-    - `contexts_for_validation` to `summary`
+    - `context_for_collection_summary` to `summary`
+    - `contexts_for_entry_edit` / `contexts_for_collection_edit` to include `summary`
+    - `contexts_for_entry_validation` to include `summary`
 
 Now Entries can not be published or changed later on if those "fields" are missing.
 MediaEntries and Collections will show this MetaData on their detail views.
@@ -67,8 +67,9 @@ by the `webapp` can still be useful for certain workflows:
 - For exporting to other systems that have their own requirements,
   a custom [Context][] can be used to validate them.
 
-- <mark>For An [ApiClient][] that provides a specialized data-entry UI,
-  a custom [Context][] can be used to configure available and required "fields".</mark>
+- For an [ApiClient][] that provides a specialized data-entry UI, a custom
+  [Context][] can configure available and required fields. See also
+  [API consumers](../api/consumers.md).
 
 ## AppSettings
 
@@ -79,7 +80,8 @@ e.g. inside the "All Data" Tab of the Detail view.
 
 ### Editing
 
-- `AppSettings: contexts_for_resource_edit`: Contexts used in the edit formn, each as a tab.
+- `AppSettings: contexts_for_entry_edit` / `contexts_for_collection_edit`:
+  Contexts used in the edit form, each as a tab.
 
 - the same settings is used for editing Entries and Collections,
   the Settings of MetaKeys (i.e. `enabled_for_entries?`) still apply
