@@ -32,6 +32,8 @@ This method defines its own `SQL` generation logic and behaves as any other `Act
       "value": true },
     { "key": "responsible_user",
       "value": "8631ffff-f601-451e-bce7-f3696d18addf" },
+    { "key": "responsible_delegation",
+      "value": "179f62ba-1234-5678-9abc-def012345678" },
     { "key": "entrusted_to_user",
       "value": "f3d3174c-11b2-43e3-80dc-5925665c5a37" },
     { "key": "entrusted_to_group",
@@ -116,6 +118,8 @@ All the filter options inside `media_files` are combined using the logical `AND`
       "value": true },
     { "key": "responsible_user",
       "value": "8631ffff-f601-451e-bce7-f3696d18addf" },
+    { "key": "responsible_delegation",
+      "value": "179f62ba-1234-5678-9abc-def012345678" },
     { "key": "entrusted_to_user",
       "value": "f3d3174c-11b2-43e3-80dc-5925665c5a37" },
     { "key": "entrusted_to_group",
@@ -124,12 +128,13 @@ All the filter options inside `media_files` are combined using the logical `AND`
 }
 ```
 
-There are 4 usage options:
+There are 5 usage options:
 
 1. use an `uuid` as `value` for `key` = `responsible_user`
-2. use an `uuid` as `value` for `key` = `entrusted_to_user`
-3. use an `uuid` as `value` for `key` = `entrusted_to_group`
-4. use `true`/`false` as `value` for `key` = `public`
+2. use an `uuid` as `value` for `key` = `responsible_delegation`
+3. use an `uuid` as `value` for `key` = `entrusted_to_user`
+4. use an `uuid` as `value` for `key` = `entrusted_to_group`
+5. use `true`/`false` as `value` for `key` = `public`
 
 All the filter options inside `permissions` are combined using the logical `AND`.
 
