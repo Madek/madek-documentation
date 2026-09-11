@@ -18,17 +18,20 @@ We currently have the following image sizes (aka thumbnails):
 
 | Name            | Size  (bounding rectangle) |
 |-----------------|----------------------------|
-| `small` (*)     | 100 x 100                  |
+| `small`     (*) | 100 x 100                  |
 | `small_125` (*) | 125 x 125                  |
 | `medium`        | 300 x 300                  |
 | `large`         | 620 x 620                  |
 | `x_large`       | 1024 x 1024                |
-| `grand` (**)    | 1280 x 1280                |
+| `grand`    (**) | 1280 x 1280                |
+| `x_grand` (***) | 1920 x 1920                |
 | `maximum`       | (original size)            |
 
 (*) `small` and `small_125` are no longer generated starting with release 4.14.
 
 (**) `grand` was introduced with release 4.14.
+
+(***) `x_grand` was introduced with release 4.16.
 
 # Routes
 
