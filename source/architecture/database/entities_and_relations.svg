@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns:xl="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1155 783" width="1155" height="783">
+<svg xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 1155 783" width="1155" height="783">
   <defs>
     <filter id="Shadow" filterUnits="userSpaceOnUse" x="-115.5" y="-78.3">
       <feGaussianBlur in="SourceAlpha" result="blur" stdDeviation="1.308"/>
@@ -147,7 +147,7 @@
         </text>
       </g>
       <g id="Line_107">
-        <line x1="288.95188" y1="394.1258" x2="272.19808" y2="227.71598" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="289.13737" y1="387.11725" x2="272.28667" y2="227.70684" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_679">
         <rect x="450" y="675" width="127.302" height="19.008646" fill="#80ff80"/>
@@ -179,14 +179,14 @@
         <line x1="879.9513" y1="289.92283" x2="893.1794" y2="188.74894" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_752">
-        <path d="M 173.21866 405 L 237.54647 469.3278 L 219.23282 487.64146 L 154.90501 423.31365 Z" fill="#ebebeb"/>
-        <path d="M 173.21866 405 L 237.54647 469.3278 L 219.23282 487.64146 L 154.90501 423.31365 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
-        <text transform="translate(173.21866 412.07107) rotate(45)" fill="black">
+        <path d="M 164.21866 405 L 228.54647 469.3278 L 210.23282 487.64146 L 145.90501 423.31365 Z" fill="#ebebeb"/>
+        <path d="M 164.21866 405 L 228.54647 469.3278 L 210.23282 487.64146 L 145.90501 423.31365 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(164.21866 412.07107) rotate(45)" fill="black">
           <tspan font-family="Helvetica" font-size="8" fill="black" x="19.363586" y="8" xml:space="preserve">EditSession</tspan>
         </text>
       </g>
       <g id="Line_753">
-        <line x1="166.3339" y1="408.06686" x2="234.8801" y2="224.33851" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="157.56174" y1="408.1568" x2="234.25268" y2="224.09086" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_764">
         <path d="M 110.43295 421.095 L 190.905 501.56705 L 170.47206 522 L 90 441.52794 Z" fill="#ebebeb"/>
@@ -332,9 +332,9 @@
         </text>
       </g>
       <g id="Graphic_105">
-        <path d="M 276.7248 386.3727 L 327.6365 437.2844 L 295.8167 469.1042 L 244.905 418.1925 Z" fill="#d883ff"/>
-        <path d="M 276.7248 386.3727 L 327.6365 437.2844 L 295.8167 469.1042 L 244.905 418.1925 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
-        <text transform="translate(274.95705 395.21154) rotate(45)" fill="black">
+        <path d="M 276.7248 377.3727 L 327.6365 428.2844 L 295.8167 460.1042 L 244.905 409.1925 Z" fill="#d883ff"/>
+        <path d="M 276.7248 377.3727 L 327.6365 428.2844 L 295.8167 460.1042 L 244.905 409.1925 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+        <text transform="translate(274.95705 386.21154) rotate(45)" fill="black">
           <tspan font-family="Helvetica" font-size="8" fill="black" x="7.214844" y="8" xml:space="preserve">MediaEntry- / </tspan>
           <tspan font-family="Helvetica" font-size="8" fill="black" x="9.880859" y="18" xml:space="preserve">Collection- /</tspan>
           <tspan font-family="Helvetica" font-size="8" fill="black" x="2.7714844" y="28" xml:space="preserve">UserPermission</tspan>
@@ -348,7 +348,7 @@
         </text>
       </g>
       <g id="Line_1011">
-        <line x1="306.2262" y1="462.8741" x2="464.6551" y2="574.20406" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="306.16706" y1="453.95535" x2="465.00804" y2="573.71925" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_166">
         <path d="M 441.04093 196.18719 L 448.23835 189.01023 L 532.8326 189.13068 L 540.00954 196.3281 L 539.97884 217.88967 L 532.7814 225.06662 L 448.1872 224.94617 L 441.01023 217.74875 Z" fill="#80ffff"/>
@@ -364,7 +364,7 @@
         <line x1="414.8525" y1="168.44718" x2="429.7282" y2="284.42354" marker-end="url(#FilledArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_913">
-        <line x1="314.5361" y1="454.24627" x2="622.9409" y2="569.7232" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="314.51023" y1="445.31297" x2="623.09535" y2="569.3253" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_916">
         <line x1="820.9783" y1="430.9831" x2="729.5722" y2="561.34386" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
@@ -421,10 +421,10 @@
         <line x1="176.76435" y1="523.63003" x2="416.85317" y2="585.8256" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_1006">
-        <line x1="227.81" y1="491.10476" x2="442.5033" y2="577.7937" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="218.85302" y1="490.99626" x2="442.42003" y2="578.0037" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Line_962">
-        <line x1="237.32167" y1="480.8891" x2="596.48774" y2="577.57464" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line x1="228.33532" y1="480.8378" x2="596.4613" y2="577.6739" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
       <g id="Graphic_969">
         <rect x="657" y="27" width="108" height="45" fill="#73feff"/>
@@ -766,6 +766,19 @@
       </g>
       <g id="Line_970">
         <line x1="831.8255" y1="134.16098" x2="776.0904" y2="63.55038" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledCenterBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Graphic_1131">
+        <path d="M 205.67219 394.35854 L 270 458.68635 L 251.68635 477 L 187.35854 412.6722 Z" fill="#ebebeb"/>
+        <path d="M 205.67219 394.35854 L 270 458.68635 L 251.68635 477 L 187.35854 412.6722 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(205.67219 401.4296) rotate(45)" fill="black">
+          <tspan font-family="Helvetica" font-size="8" fill="black" x="18.699524" y="8" xml:space="preserve">XmpSidecar</tspan>
+        </text>
+      </g>
+      <g id="Line_1130">
+        <line x1="198.41243" y1="397.29836" x2="250.53913" y2="226.47027" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledBall_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_1129">
+        <line x1="259.89894" y1="481.2563" x2="443.2088" y2="576.2592" marker-end="url(#DoubleArrow_Marker)" marker-start="url(#FilledDiamond_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
       </g>
     </g>
   </g>
